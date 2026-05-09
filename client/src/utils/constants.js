@@ -1,0 +1,19 @@
+export const genderOptions = [
+  { label: "Male", value: "male" },
+  { label: "Female", value: "female" },
+  { label: "Other", value: "other" },
+  { label: "Prefer not to say", value: "prefer-not-to-say" }
+];
+
+export const campTypeOptions = [
+  { label: "Junior Camp (ages 5-8)", value: "junior-camp" },
+  { label: "Stay in Camp (ages 9-19)", value: "stay-in-camp" }
+];
+
+export const sortOptions = [
+  { label: "Newest first", value: "submittedAt:desc" },
+  { label: "Oldest first", value: "submittedAt:asc" },
+  { label: "Name A-Z", value: "fullName:asc" },
+  { label: "Gender", value: "gender:asc" },
+  { label: "Age", value: "dateOfBirth:asc" }
+];

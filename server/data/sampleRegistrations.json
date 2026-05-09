@@ -1,0 +1,58 @@
+[
+  {
+    "registrationId": "REG-20260509010101-ABC123",
+    "eventId": "default-event",
+    "fullName": "Alicia Morgan",
+    "school": "St. Joseph Primary School",
+    "classLevel": "Class 5",
+    "campType": "junior-camp",
+    "dateOfBirth": "2008-06-17T00:00:00.000Z",
+    "gender": "female",
+    "address": "14 Ocean View Drive, Port of Spain",
+    "phone": "+1 868 555 0101",
+    "email": "alicia@example.com",
+    "parentGuardianContact": {
+      "name": "Jordan Morgan",
+      "relationship": "Parent",
+      "contactNumber": "+1 868 555 0102"
+    },
+    "medicalConditions": "None",
+    "guardianInfo": "Parent: Jordan Morgan",
+    "consentAccepted": true,
+    "selectedDate": "2026-05-09T00:00:00.000Z",
+    "signatureImage": "/uploads/signatures/sample-signature.png",
+    "generatedPdf": "/uploads/pdfs/sample-registration.pdf",
+    "attachments": [],
+    "submittedAt": "2026-05-09T01:01:01.000Z",
+    "createdAt": "2026-05-09T01:01:01.000Z",
+    "updatedAt": "2026-05-09T01:01:01.000Z"
+  },
+  {
+    "registrationId": "REG-20260509020202-DEF456",
+    "eventId": "default-event",
+    "fullName": "Marcus Peters",
+    "school": "St. Benedict's College",
+    "classLevel": "Form 2",
+    "campType": "stay-in-camp",
+    "dateOfBirth": "1999-11-02T00:00:00.000Z",
+    "gender": "male",
+    "address": "22 Hillside Avenue, San Fernando",
+    "phone": "+1 868 555 0202",
+    "email": "marcus@example.com",
+    "parentGuardianContact": {
+      "name": "Naomi Peters",
+      "relationship": "Parent",
+      "contactNumber": "+1 868 555 0203"
+    },
+    "medicalConditions": "Asthma",
+    "guardianInfo": "",
+    "consentAccepted": true,
+    "selectedDate": "2026-05-09T00:00:00.000Z",
+    "signatureImage": "/uploads/signatures/sample-signature.png",
+    "generatedPdf": "/uploads/pdfs/sample-registration.pdf",
+    "attachments": [],
+    "submittedAt": "2026-05-09T02:02:02.000Z",
+    "createdAt": "2026-05-09T02:02:02.000Z",
+    "updatedAt": "2026-05-09T02:02:02.000Z"
+  }
+]
