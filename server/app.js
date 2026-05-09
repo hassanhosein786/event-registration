@@ -18,12 +18,22 @@ const allowedOrigins = env.clientUrl
   .split(",")
   .map((origin) => origin.trim())
   .filter(Boolean);
+const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const originAllowed = (origin) =>
+  allowedOrigins.some((allowedOrigin) => {
+    if (allowedOrigin === "*") return true;
+    if (allowedOrigin.includes("*")) {
+      const pattern = `^${escapeRegex(allowedOrigin).replace(/\\\*/g, ".*")}$`;
+      return new RegExp(pattern).test(origin);
+    }
+    return allowedOrigin === origin;
+  });
 
 app.use(helmet());
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (!origin || originAllowed(origin)) {
         return callback(null, true);
       }
       return callback(new Error("Not allowed by CORS"));
