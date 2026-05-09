@@ -84,6 +84,38 @@ cd client
 npm run dev
 ```
 
+## Deploying With Vercel And Render
+
+This app works well as a split deployment:
+
+- Frontend: Vercel static site from `client/`
+- Backend: Render web service from `server/`
+- Database: MongoDB Atlas
+
+### Frontend on Vercel
+
+1. Import the `client` folder as a Vercel project.
+2. Set the build command to `npm run build`.
+3. Set the output directory to `dist`.
+4. Add `client/vercel.json` is already included to support React Router routes.
+5. Set `VITE_API_URL` in Vercel to your Render backend URL, for example `https://your-backend.onrender.com`.
+
+### Backend on Render
+
+1. Create a new Render Web Service from the `server` folder.
+2. Set the start command to `npm start`.
+3. Add the same environment variables used locally.
+4. Set `CLIENT_URL` to your Vercel URL.
+   - You can also allow local development and Vercel together with a comma-separated list:
+   - `CLIENT_URL=http://localhost:5173,https://your-vercel-app.vercel.app`
+5. Make sure `MONGODB_URI` points to MongoDB Atlas.
+
+### Important deployment notes
+
+- Render free web services spin down after 15 minutes of inactivity.
+- Vercel is a good fit for the frontend, but the backend should be on a host that can keep running your Express app.
+- Your backend stores generated PDFs and uploads on disk, so keep using Render or another persistent host unless you refactor file storage to an object store.
+
 ## Default Admin
 
 Seeded automatically on server start using:
