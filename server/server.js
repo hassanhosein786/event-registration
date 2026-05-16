@@ -7,8 +7,17 @@ const start = async () => {
   await connectDB();
   await ensureAdminSeed();
 
-  app.listen(env.port, () => {
+  const server = app.listen(env.port, () => {
     console.log(`Server running on port ${env.port}`);
+  });
+
+  server.on("error", (error) => {
+    if (error.code === "EADDRINUSE") {
+      console.error(`Port ${env.port} is already in use. Stop the other server instance or change PORT in server/.env.`);
+      process.exit(1);
+    }
+
+    throw error;
   });
 };
 
