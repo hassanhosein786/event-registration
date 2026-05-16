@@ -168,6 +168,11 @@ const PublicRegistrationPage = () => {
                 A thick blanket and warm sleepwear are necessary as the masjid is fully air conditioned.
               </p>
 
+              <p className="text-rose-200">
+                Failure to comply with any of the camp rules and guidelines may result in disciplinary action,
+                including suspension or immediate dismissal from the camp at the discretion of the organizers.
+              </p>
+
               <p className="font-semibold text-brand-100">
                 Visiting hours for parents are from Isha to 10PM.
               </p>
