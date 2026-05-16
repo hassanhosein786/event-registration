@@ -10,7 +10,12 @@ const createTransporter = () => {
   return nodemailer.createTransport({
     host: env.smtp.host,
     port: env.smtp.port,
-    secure: env.smtp.port === 465,
+    secure: env.smtp.secure || env.smtp.port === 465,
+    requireTLS: !env.smtp.secure && env.smtp.port === 587,
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 15000,
+    family: 4,
     auth: {
       user: env.smtp.user,
       pass: env.smtp.pass

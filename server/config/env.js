@@ -21,7 +21,8 @@ const env = {
     port: Number(process.env.SMTP_PORT || 587),
     user: stripQuotes(process.env.SMTP_USER),
     pass: (process.env.SMTP_PASS || "").replace(/\s+/g, ""),
-    from: stripQuotes(process.env.SMTP_FROM) || "Event Registration <no-reply@example.com>"
+    from: stripQuotes(process.env.SMTP_FROM) || "Event Registration <no-reply@example.com>",
+    secure: String(process.env.SMTP_SECURE || "").toLowerCase() === "true"
   }
 };
 
