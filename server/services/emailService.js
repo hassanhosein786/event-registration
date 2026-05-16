@@ -20,7 +20,10 @@ const createTransporter = () => {
 
 const sendRegistrationConfirmation = async (registration) => {
   const transporter = createTransporter();
-  if (!transporter) return { skipped: true };
+  if (!transporter) {
+    console.warn("Email confirmation skipped: SMTP settings are not configured.");
+    return { skipped: true, reason: "smtp_not_configured" };
+  }
 
   const attachments = [];
   if (registration.generatedPdf) {

@@ -177,6 +177,7 @@ const createRegistration = asyncHandler(async (req, res) => {
   await registration.save();
 
   if (registration.emailConfirmationRequested) {
+    console.log(`Email confirmation requested for registration ${registration.registrationId}`);
     sendRegistrationConfirmation(registration).catch((error) => {
       console.warn("Email confirmation skipped:", error.message);
     });
