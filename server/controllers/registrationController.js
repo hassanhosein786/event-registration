@@ -124,6 +124,10 @@ const createRegistration = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: "campType is invalid" });
   }
 
+  if (!["male", "female"].includes(gender)) {
+    return res.status(400).json({ message: "gender is invalid" });
+  }
+
   if (Number.isNaN(dateOfBirth.getTime())) {
     return res.status(400).json({ message: "dateOfBirth is invalid" });
   }

@@ -1,8 +1,6 @@
 export const genderOptions = [
   { label: "Male", value: "male" },
-  { label: "Female", value: "female" },
-  { label: "Other", value: "other" },
-  { label: "Prefer not to say", value: "prefer-not-to-say" }
+  { label: "Female", value: "female" }
 ];
 
 export const campTypeOptions = [

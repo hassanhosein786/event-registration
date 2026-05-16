@@ -178,19 +178,6 @@ const createRegistrationPdf = async (registration) => {
   });
   drawBox(page, 475, 201, 24);
 
-  page.drawText("Failure to comply with any of the camp rules and guidelines may result in disciplinary action,", {
-    x: 35,
-    y: 175,
-    size: 8.5,
-    font
-  });
-  page.drawText("including suspension or immediate dismissal from the camp at the discretion of the organizers.", {
-    x: 35,
-    y: 164,
-    size: 8.5,
-    font
-  });
-
   drawLine(page, 50, 135, 205);
   page.drawText("Camper Signature", {
     x: 50,
