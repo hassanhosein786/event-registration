@@ -19,7 +19,8 @@ const AdminDashboardPage = () => {
   const navigate = useNavigate();
   const [registrations, setRegistrations] = useState([]);
   const [analytics, setAnalytics] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [initialLoading, setInitialLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [search, setSearch] = useState("");
@@ -35,7 +36,7 @@ const AdminDashboardPage = () => {
   }, [sortValue]);
 
   const load = async () => {
-    setLoading(true);
+    setRefreshing(true);
     try {
       const [response, stats] = await Promise.all([
           fetchRegistrations({
@@ -60,7 +61,8 @@ const AdminDashboardPage = () => {
       }
       toast.error(error?.response?.data?.message || "Failed to load dashboard");
     } finally {
-      setLoading(false);
+      setInitialLoading(false);
+      setRefreshing(false);
     }
   };
 
@@ -121,10 +123,15 @@ const AdminDashboardPage = () => {
     window.open(href, "_blank", "noopener,noreferrer");
   };
 
-  if (loading) return <LoadingSpinner label="Loading dashboard..." />;
+  if (initialLoading) return <LoadingSpinner label="Loading dashboard..." />;
 
   return (
     <div className="space-y-6">
+      {refreshing && (
+        <div className="fixed right-4 top-4 z-50 rounded-full border border-white/10 bg-slate-950/90 px-4 py-2 text-xs font-medium text-slate-300 shadow-2xl shadow-black/30">
+          Updating dashboard...
+        </div>
+      )}
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
         <StatCard label="Total registrations" value={analytics?.total || 0} icon={ShieldCheck} />
         <StatCard label="Stay in Camp" value={analytics?.stayInCamp || 0} icon={FileText} accent="green" />
