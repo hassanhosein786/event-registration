@@ -2,6 +2,8 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
+const stripQuotes = (value) => String(value || "").trim().replace(/^["']|["']$/g, "");
+
 const env = {
   nodeEnv: process.env.NODE_ENV || "development",
   port: process.env.PORT || 5000,
@@ -15,11 +17,11 @@ const env = {
   turnstileSecret: process.env.TURNSTILE_SECRET || "",
   turnstileSiteKey: process.env.TURNSTILE_SITE_KEY || "",
   smtp: {
-    host: process.env.SMTP_HOST || "",
+    host: stripQuotes(process.env.SMTP_HOST),
     port: Number(process.env.SMTP_PORT || 587),
-    user: process.env.SMTP_USER || "",
+    user: stripQuotes(process.env.SMTP_USER),
     pass: (process.env.SMTP_PASS || "").replace(/\s+/g, ""),
-    from: process.env.SMTP_FROM || "Event Registration <no-reply@example.com>"
+    from: stripQuotes(process.env.SMTP_FROM) || "Event Registration <no-reply@example.com>"
   }
 };
 
