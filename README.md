@@ -116,6 +116,17 @@ This app works well as a split deployment:
 - Vercel is a good fit for the frontend, but the backend should be on a host that can keep running your Express app.
 - Your backend stores generated PDFs and uploads on disk, so keep using Render or another persistent host unless you refactor file storage to an object store.
 
+### Optional keep-awake ping
+
+If you want to reduce cold starts on a free Render service, this repo includes a GitHub Action that pings the backend every 5 minutes.
+
+1. Add a GitHub secret named `BACKEND_URL`.
+2. Set it to your backend URL, for example `https://your-backend.onrender.com`.
+3. The workflow calls `${BACKEND_URL}/api/health` on a 5-minute schedule.
+
+File:
+- [.github/workflows/ping-backend.yml](./.github/workflows/ping-backend.yml)
+
 ## Default Admin
 
 Seeded automatically on server start using:
