@@ -42,7 +42,8 @@ const validateRegistrationPayload = (body) => {
     "parentGuardianName",
     "parentGuardianRelationship",
     "parentGuardianContactNumber",
-    "consentAccepted"
+    "consentAccepted",
+    "consentRulesAccepted"
   ];
 
   for (const field of required) {
@@ -53,6 +54,10 @@ const validateRegistrationPayload = (body) => {
 
   if (body.consentAccepted !== true && body.consentAccepted !== "true") {
     errors.push("consentAccepted must be checked");
+  }
+
+  if (body.consentRulesAccepted !== true && body.consentRulesAccepted !== "true") {
+    errors.push("consentRulesAccepted must be checked");
   }
 
   if (body.honeypot && String(body.honeypot).trim() !== "") {
@@ -111,6 +116,7 @@ const createRegistration = asyncHandler(async (req, res) => {
   const medicalConditions = registrationInputFields.medicalConditions(req.body.medicalConditions);
   const guardianInfo = registrationInputFields.guardianInfo(req.body.guardianInfo);
   const consentAccepted = registrationInputFields.consentAccepted(req.body.consentAccepted);
+  const consentRulesAccepted = registrationInputFields.consentAccepted(req.body.consentRulesAccepted);
   const emailConfirmationRequested = registrationInputFields.emailConfirmationRequested(req.body.emailConfirmationRequested);
   const selectedDate = req.body.date ? new Date(req.body.date) : new Date();
 
@@ -156,6 +162,7 @@ const createRegistration = asyncHandler(async (req, res) => {
     medicalConditions,
     guardianInfo,
     consentAccepted,
+    consentRulesAccepted,
     emailConfirmationRequested,
     selectedDate,
     signatureImage: "",

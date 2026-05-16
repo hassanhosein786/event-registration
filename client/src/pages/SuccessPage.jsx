@@ -5,6 +5,7 @@ import Button from "../components/Button";
 const SuccessPage = () => {
   const location = useLocation();
   const registration = location.state?.registration;
+  const emailRequested = Boolean(registration?.emailConfirmationRequested);
 
   return (
     <div className="mx-auto flex min-h-[calc(100vh-80px)] max-w-3xl items-center px-4 py-8 sm:px-6 lg:px-8">
@@ -16,6 +17,11 @@ const SuccessPage = () => {
         <p className="mt-3 text-sm text-slate-400">
           Your entry was saved successfully and the registration PDF has been generated.
         </p>
+        {emailRequested && (
+          <p className="mt-3 text-sm text-amber-200">
+            A confirmation email was requested. Please also check your spam or junk folder.
+          </p>
+        )}
         {registration?.registrationId && (
           <div className="mt-6 rounded-2xl border border-white/10 bg-slate-950/70 p-4 text-sm text-slate-200">
             Registration ID: <span className="font-mono text-brand-200">{registration.registrationId}</span>

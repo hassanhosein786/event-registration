@@ -10,7 +10,6 @@ import StatCard from "../components/StatCard";
 import RegistrationsTable from "../components/RegistrationsTable";
 import Modal from "../components/Modal";
 import Pagination from "../components/Pagination";
-import DashboardCharts from "../components/DashboardCharts";
 import { fetchRegistrations, deleteRegistration, exportCsv, mergeAllPdfs, fetchAnalytics } from "../services/registrationService";
 import { useDebounce } from "../hooks/useDebounce";
 import { sortOptions, genderOptions, campTypeOptions } from "../utils/constants";
@@ -126,24 +125,23 @@ const AdminDashboardPage = () => {
 
   return (
     <div className="space-y-6">
-      <div className="grid gap-4 md:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
         <StatCard label="Total registrations" value={analytics?.total || 0} icon={ShieldCheck} />
-        <StatCard label="Recent week" value={analytics?.recent || 0} icon={FileText} accent="green" />
+        <StatCard label="Stay in Camp" value={analytics?.stayInCamp || 0} icon={FileText} accent="green" />
+        <StatCard label="Junior Camp" value={analytics?.juniorCamp || 0} icon={FileText} accent="amber" />
         <StatCard label="Male" value={analytics?.male || 0} icon={FileText} accent="amber" />
         <StatCard label="Female" value={analytics?.female || 0} icon={FileText} accent="rose" />
       </div>
 
-      <DashboardCharts stats={analytics} />
-
       <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div className="grid gap-4 md:grid-cols-3 lg:flex-1">
+        <div className="flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4 xl:flex-1">
             <Input label="Search" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Name, email, phone, registration ID" />
             <Select label="Filter by gender" value={gender} onChange={(e) => setGender(e.target.value)} options={genderOptions} />
             <Select label="Filter by camp type" value={campType} onChange={(e) => setCampType(e.target.value)} options={campTypeOptions} />
             <Select label="Sort by" value={sortValue} onChange={(e) => setSortValue(e.target.value)} options={sortOptions} />
           </div>
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-3 xl:flex-nowrap">
             <Button variant="secondary" onClick={handleExportCsv}>
               <Download className="mr-2 h-4 w-4" />
               Export CSV

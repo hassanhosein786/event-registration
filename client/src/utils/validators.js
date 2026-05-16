@@ -16,7 +16,8 @@ export const registrationSchema = z.object({
   medicalConditions: z.string().optional(),
   guardianInfo: z.string().optional(),
   date: z.string().min(1, "Date is required"),
-  consentAccepted: z.boolean().refine(Boolean, "Consent is required")
+  consentAccepted: z.boolean().refine(Boolean, "Consent is required"),
+  consentRulesAccepted: z.boolean().refine(Boolean, "Rules consent is required")
 });
 
 export const loginSchema = z.object({

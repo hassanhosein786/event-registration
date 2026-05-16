@@ -53,6 +53,18 @@ const drawLine = (page, x1, y, x2) => {
   });
 };
 
+const drawBox = (page, x, y, size = 20) => {
+  page.drawRectangle({
+    x,
+    y,
+    width: size,
+    height: size,
+    borderColor: rgb(0.1, 0.1, 0.1),
+    borderWidth: 1,
+    color: rgb(1, 1, 1)
+  });
+};
+
 const formatCampType = (value) => {
   if (value === "junior-camp") return "Junior Camp";
   if (value === "stay-in-camp") return "Stay in Camp";
@@ -142,20 +154,54 @@ const createRegistrationPdf = async (registration) => {
   drawFieldPair(page, font, ["Consent Accepted", registration.consentAccepted ? "Yes" : "No"], ["Submitted At", new Date(registration.submittedAt || registration.createdAt).toLocaleString()], y);
   y -= rowGap;
 
-  page.drawText("Parent's Signature", {
+  page.drawText("Consent to rules and regulations", {
+    x: 35,
+    y: 205,
+    size: 12,
+    font
+  });
+  drawBox(page, 220, 201, 24);
+
+  page.drawText("Consent to field trips", {
+    x: 35,
+    y: 168,
+    size: 12,
+    font
+  });
+  drawBox(page, 220, 164, 24);
+
+  page.drawText("Fees Paid", {
+    x: 385,
+    y: 205,
+    size: 12,
+    font
+  });
+  drawBox(page, 475, 201, 24);
+
+  drawLine(page, 50, 140, 205);
+  page.drawText("Camper Signature", {
     x: 50,
-    y: 130,
+    y: 126,
     size: 12,
-    font: fontBold
+    font
   });
-  drawLine(page, 50, 94, 255);
+
+  drawLine(page, 390, 140, 545);
+  page.drawText("Parents Signature", {
+    x: 390,
+    y: 126,
+    size: 12,
+    font
+  });
+
+  drawLine(page, 170, 90, 420);
   page.drawText("Date", {
-    x: 330,
-    y: 130,
+    x: 280,
+    y: 76,
     size: 12,
-    font: fontBold
+    font,
+    color: rgb(0.1, 0.1, 0.1)
   });
-  drawLine(page, 330, 94, 545);
 
   const pdfBytes = await pdfDoc.save();
   const fileName = `${registration.registrationId}.pdf`;

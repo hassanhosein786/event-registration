@@ -34,6 +34,7 @@ const registrationSchema = new mongoose.Schema(
     medicalConditions: { type: String, default: "" },
     guardianInfo: { type: String, default: "" },
     consentAccepted: { type: Boolean, required: true, default: false },
+    consentRulesAccepted: { type: Boolean, required: true, default: false },
     emailConfirmationRequested: { type: Boolean, default: false },
     selectedDate: { type: Date, default: Date.now },
     signatureImage: { type: String, default: "" },

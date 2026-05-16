@@ -56,12 +56,13 @@ const printAllRegistrations = asyncHandler(async (req, res) => {
 });
 
 const exportAnalytics = asyncHandler(async (req, res) => {
-  const [total, male, female, other, recent] = await Promise.all([
+  const [total, male, female, other, stayInCamp, juniorCamp] = await Promise.all([
     Registration.countDocuments(),
     Registration.countDocuments({ gender: "male" }),
     Registration.countDocuments({ gender: "female" }),
     Registration.countDocuments({ gender: "other" }),
-    Registration.countDocuments({ createdAt: { $gte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) } })
+    Registration.countDocuments({ campType: "stay-in-camp" }),
+    Registration.countDocuments({ campType: "junior-camp" })
   ]);
 
   res.json({
@@ -70,7 +71,8 @@ const exportAnalytics = asyncHandler(async (req, res) => {
       male,
       female,
       other,
-      recent
+      stayInCamp,
+      juniorCamp
     }
   });
 });

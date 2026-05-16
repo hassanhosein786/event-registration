@@ -27,6 +27,7 @@ const initialState = {
   medicalConditions: "",
   guardianInfo: "",
   consentAccepted: false,
+  consentRulesAccepted: false,
   emailConfirmationRequested: false,
   date: new Date().toISOString().slice(0, 10),
   honeypot: "",
@@ -60,7 +61,7 @@ const PublicRegistrationPage = () => {
   const derivedPrompt = useMemo(() => eventName, []);
 
   const onChange = (field) => (e) => {
-    const checkboxFields = new Set(["consentAccepted", "emailConfirmationRequested"]);
+    const checkboxFields = new Set(["consentAccepted", "consentRulesAccepted", "emailConfirmationRequested"]);
     const value = checkboxFields.has(field) ? e.target.checked : e.target.value;
     setForm((current) => ({ ...current, [field]: value }));
   };
@@ -134,6 +135,45 @@ const PublicRegistrationPage = () => {
             </div>
           </div>
 
+          <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-glow">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-200">Camp Rules and Guidelines</h3>
+            <div className="mt-4 space-y-4 text-sm leading-6 text-slate-200">
+              <ol className="space-y-2 pl-5">
+                <li>Proper Islamic attire must be worn; i.e., for sisters, only hands, face, and feet can show, while for brothers, long pants and a jersey or shirt are allowed.</li>
+                <li>Amir's instruction should be adhered to at all times.</li>
+                <li>Absolutely no cellular phones allowed. In case of emergency, parents can contact any of the following: 792-0718, 720-3060, 737-2096.</li>
+                <li>Absolutely no valuables such as jewelry, electronic items, large amounts of money, etc. Camp organizers will not be responsible if these items are misplaced.</li>
+                <li>No one would be allowed to leave the compound without the Ameer's permission.</li>
+                <li>Absolutely no playing of cards, no smoking, or illegal activities will be allowed. Anyone caught will be sent home immediately.</li>
+                <li>All other rules and regulations must be obeyed.</li>
+                <li>The organizers reserve the right to refuse admission or to suspend any camper who does not comply with the rules of the camp.</li>
+              </ol>
+
+              <div>
+                <p className="font-semibold text-white">Campers must have the following personal items:</p>
+                <ol className="mt-2 space-y-2 pl-5">
+                  <li>Sneakers</li>
+                  <li>Bed sheets</li>
+                  <li>Thick blanket</li>
+                  <li>Pillow</li>
+                  <li>Toiletries</li>
+                  <li>Towels</li>
+                  <li>Sportswear</li>
+                  <li>Modest swimwear</li>
+                  <li>Topi for boys</li>
+                </ol>
+              </div>
+
+              <p>
+                A thick blanket and warm sleepwear are necessary as the masjid is fully air conditioned.
+              </p>
+
+              <p className="font-semibold text-brand-100">
+                Visiting hours for parents are from Isha to 10PM.
+              </p>
+            </div>
+          </div>
+
           <form onSubmit={handleSubmit} className="space-y-6 rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-glow">
             <Select
               label="Camp type"
@@ -202,6 +242,12 @@ const PublicRegistrationPage = () => {
               checked={form.consentAccepted}
               onChange={onChange("consentAccepted")}
               error={errors.consentAccepted}
+            />
+            <Checkbox
+              label="I consent to the rules and regulations of the camp."
+              checked={form.consentRulesAccepted}
+              onChange={onChange("consentRulesAccepted")}
+              error={errors.consentRulesAccepted}
             />
             <Checkbox
               label="Send me a confirmation email with the completed PDF."

@@ -2,8 +2,7 @@ const DashboardCharts = ({ stats }) => {
   const items = [
     { label: "Male", value: stats?.male || 0, color: "bg-brand-500" },
     { label: "Female", value: stats?.female || 0, color: "bg-emerald-500" },
-    { label: "Other", value: stats?.other || 0, color: "bg-amber-500" },
-    { label: "Recent", value: stats?.recent || 0, color: "bg-rose-500" }
+    { label: "Other", value: stats?.other || 0, color: "bg-amber-500" }
   ];
   const max = Math.max(...items.map((item) => item.value), 1);
 
@@ -15,7 +14,7 @@ const DashboardCharts = ({ stats }) => {
           <p className="text-sm text-slate-400">Simple analytics preview</p>
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         {items.map((item) => (
           <div key={item.label} className="space-y-3 rounded-2xl border border-white/10 bg-slate-950/60 p-4">
             <div className="flex items-center justify-between text-sm">
