@@ -131,6 +131,7 @@ File:
 
 Seeded automatically on server start using:
 
+- Username: `admin`
 - Email: `admin@admin.com`
 - Password: `admin123`
 

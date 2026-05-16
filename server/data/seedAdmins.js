@@ -3,6 +3,7 @@ const Admin = require("../models/Admin");
 const env = require("../config/env");
 
 const ensureAdminSeed = async () => {
+  const username = String(env.adminUsername).toLowerCase();
   const email = String(env.adminEmail).toLowerCase();
   const password = await bcrypt.hash(env.adminPassword, 12);
   const admin = await Admin.findOneAndUpdate(
@@ -10,6 +11,7 @@ const ensureAdminSeed = async () => {
     {
       $set: {
         name: "System Admin",
+        username,
         email,
         password,
         role: "superadmin",
@@ -23,7 +25,7 @@ const ensureAdminSeed = async () => {
     }
   );
 
-  console.log(`Admin synced: ${admin.email}`);
+  console.log(`Admin synced: ${admin.username}`);
   return admin;
 };
 

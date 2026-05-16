@@ -5,13 +5,13 @@ const Admin = require("../models/Admin");
 const env = require("../config/env");
 
 const signToken = (admin) =>
-  jwt.sign({ id: admin._id, role: admin.role, email: admin.email }, env.jwtSecret, {
+  jwt.sign({ id: admin._id, role: admin.role, username: admin.username, email: admin.email }, env.jwtSecret, {
     expiresIn: env.jwtExpiresIn
   });
 
 const loginAdmin = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
-  const admin = await Admin.findOne({ email: String(email).toLowerCase() }).select("+password");
+  const { username, password } = req.body;
+  const admin = await Admin.findOne({ username: String(username).toLowerCase() }).select("+password");
 
   if (!admin || !admin.isActive) {
     return res.status(401).json({ message: "Invalid credentials" });
@@ -27,6 +27,7 @@ const loginAdmin = asyncHandler(async (req, res) => {
     admin: {
       id: admin._id,
       name: admin.name,
+      username: admin.username,
       email: admin.email,
       role: admin.role
     }
@@ -38,6 +39,7 @@ const me = asyncHandler(async (req, res) => {
     admin: {
       id: req.admin._id,
       name: req.admin.name,
+      username: req.admin.username,
       email: req.admin.email,
       role: req.admin.role
     }

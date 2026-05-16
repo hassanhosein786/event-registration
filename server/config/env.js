@@ -9,6 +9,7 @@ const env = {
   mongoUri: process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/event_registration",
   jwtSecret: process.env.JWT_SECRET || "dev_secret_change_me",
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || "7d",
+  adminUsername: process.env.ADMIN_USERNAME || "admin",
   adminEmail: process.env.ADMIN_EMAIL || "admin@example.com",
   adminPassword: process.env.ADMIN_PASSWORD || "ChangeMe123!",
   turnstileSecret: process.env.TURNSTILE_SECRET || "",

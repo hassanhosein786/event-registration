@@ -9,7 +9,7 @@ import { loginSchema } from "../utils/validators";
 
 const AdminLoginPage = () => {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [form, setForm] = useState({ username: "", password: "" });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -51,7 +51,7 @@ const AdminLoginPage = () => {
           <p className="mt-2 text-sm text-slate-400">Restricted access for administrators only.</p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <Input label="Email" type="email" value={form.email} onChange={handleChange("email")} error={errors.email} />
+          <Input label="Username" value={form.username} onChange={handleChange("username")} error={errors.username} />
           <Input label="Password" type="password" value={form.password} onChange={handleChange("password")} error={errors.password} />
           <Button type="submit" className="w-full" disabled={loading}>
             {loading ? "Signing in..." : "Login"}
