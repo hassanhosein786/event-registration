@@ -16,6 +16,7 @@ const env = {
   adminPassword: process.env.ADMIN_PASSWORD || "ChangeMe123!",
   turnstileSecret: process.env.TURNSTILE_SECRET || "",
   turnstileSiteKey: process.env.TURNSTILE_SITE_KEY || "",
+  brevoApiKey: stripQuotes(process.env.BREVO_API_KEY),
   smtp: {
     host: stripQuotes(process.env.SMTP_HOST),
     port: Number(process.env.SMTP_PORT || 587),
