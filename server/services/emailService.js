@@ -1,7 +1,10 @@
 const nodemailer = require("nodemailer");
+const dns = require("dns");
 const fs = require("fs/promises");
 const path = require("path");
 const env = require("../config/env");
+
+dns.setDefaultResultOrder("ipv4first");
 
 const hasSmtpConfig = () => Boolean(env.smtp.host && env.smtp.user && env.smtp.pass);
 
@@ -12,10 +15,13 @@ const createTransporter = () => {
     port: env.smtp.port,
     secure: env.smtp.secure || env.smtp.port === 465,
     requireTLS: !env.smtp.secure && env.smtp.port === 587,
+    family: 4,
+    lookup: (hostname, options, callback) => {
+      dns.lookup(hostname, { ...options, family: 4 }, callback);
+    },
     connectionTimeout: 10000,
     greetingTimeout: 10000,
     socketTimeout: 15000,
-    family: 4,
     auth: {
       user: env.smtp.user,
       pass: env.smtp.pass
