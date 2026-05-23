@@ -120,7 +120,14 @@ const CamperPortalPage = () => {
         </div>
       )}
 
-      <Modal open={Boolean(selectedRow)} title={selectedRow?.fullName || "Camper details"} onClose={() => setSelectedRow(null)} confirmText="Close" onConfirm={() => setSelectedRow(null)}>
+      <Modal
+        open={Boolean(selectedRow)}
+        title={selectedRow?.fullName || "Camper details"}
+        onClose={() => setSelectedRow(null)}
+        confirmText="Close"
+        onConfirm={() => setSelectedRow(null)}
+        hideCancel
+      >
         {selectedRow && (
           <div className="grid gap-3 sm:grid-cols-2">
             <Detail label="Registration ID" value={selectedRow.registrationId} />
