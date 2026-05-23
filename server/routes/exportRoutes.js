@@ -4,14 +4,10 @@ const { exportCsv, mergeAllPdfs, printAllRegistrations, exportAnalytics } = requ
 
 const router = express.Router();
 
-router.use(protectAdmin);
+router.use(protectAdmin, allowRoles("admin", "superadmin"));
 
 router.get("/csv", exportCsv);
 router.get("/pdf/merge", mergeAllPdfs);
 router.get("/print", printAllRegistrations);
 router.get("/analytics", exportAnalytics);
-router.get("/settings", allowRoles("superadmin"), (req, res) => {
-  res.json({ message: "Superadmin settings access granted" });
-});
-
 module.exports = router;

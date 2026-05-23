@@ -13,7 +13,7 @@ import { campTypeOptions } from "../utils/constants";
 const columnHelper = createColumnHelper();
 const formatCampType = (value) => campTypeOptions.find((option) => option.value === value)?.label || value || "-";
 
-const RegistrationsTable = ({ data, onView, onDelete, onPrint, onDownload }) => {
+const RegistrationsTable = ({ data, onView, onDelete, onPrint, onDownload, showActions = true }) => {
   const columns = [
     columnHelper.accessor("registrationId", {
       header: "ID",
@@ -37,26 +37,30 @@ const RegistrationsTable = ({ data, onView, onDelete, onPrint, onDownload }) => 
       header: "Submitted",
       cell: (info) => formatDateTime(info.getValue())
     }),
-    columnHelper.display({
-      id: "actions",
-      header: "Actions",
-      cell: ({ row }) => (
-        <div className="flex flex-wrap gap-2">
-          <Button variant="secondary" className="px-3 py-2 text-xs" onClick={() => onView(row.original)}>
-            <Eye className="mr-1 h-3.5 w-3.5" /> View
-          </Button>
-          <Button variant="secondary" className="px-3 py-2 text-xs" onClick={() => onPrint(row.original)}>
-            <Printer className="mr-1 h-3.5 w-3.5" /> Print
-          </Button>
-          <Button variant="secondary" className="px-3 py-2 text-xs" onClick={() => onDownload(row.original)}>
-            <Download className="mr-1 h-3.5 w-3.5" /> PDF
-          </Button>
-          <Button variant="danger" className="px-3 py-2 text-xs" onClick={() => onDelete(row.original)}>
-            <Trash2 className="mr-1 h-3.5 w-3.5" /> Delete
-          </Button>
-        </div>
-      )
-    })
+    ...(showActions
+      ? [
+          columnHelper.display({
+            id: "actions",
+            header: "Actions",
+            cell: ({ row }) => (
+              <div className="flex flex-wrap gap-2">
+                <Button variant="secondary" className="px-3 py-2 text-xs" onClick={() => onView(row.original)}>
+                  <Eye className="mr-1 h-3.5 w-3.5" /> View
+                </Button>
+                <Button variant="secondary" className="px-3 py-2 text-xs" onClick={() => onPrint(row.original)}>
+                  <Printer className="mr-1 h-3.5 w-3.5" /> Print
+                </Button>
+                <Button variant="secondary" className="px-3 py-2 text-xs" onClick={() => onDownload(row.original)}>
+                  <Download className="mr-1 h-3.5 w-3.5" /> PDF
+                </Button>
+                <Button variant="danger" className="px-3 py-2 text-xs" onClick={() => onDelete(row.original)}>
+                  <Trash2 className="mr-1 h-3.5 w-3.5" /> Delete
+                </Button>
+              </div>
+            )
+          })
+        ]
+      : [])
   ];
 
   const table = useReactTable({

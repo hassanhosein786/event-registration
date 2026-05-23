@@ -18,11 +18,16 @@ const AdminLayout = () => {
   useEffect(() => {
     if (!loading && !admin) {
       navigate("/admin/login", { replace: true });
+      return;
+    }
+    if (!loading && admin && !["admin", "superadmin"].includes(admin.role)) {
+      navigate("/campers", { replace: true });
     }
   }, [admin, loading, navigate]);
 
   const logout = () => {
     localStorage.removeItem("admin_token");
+    localStorage.removeItem("camper_token");
     setAdmin(null);
     navigate("/admin/login", { replace: true });
   };
