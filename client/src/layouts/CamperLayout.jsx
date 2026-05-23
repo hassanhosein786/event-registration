@@ -5,7 +5,7 @@ import { useAuth } from "../hooks/useAuth";
 
 const CamperLayout = () => {
   const navigate = useNavigate();
-  const { admin, setAdmin, loading } = useAuth();
+  const { admin, setAdmin, loading } = useAuth("camper_token");
 
   useEffect(() => {
     if (!loading && !admin) {

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { getCurrentAdmin } from "../services/authService";
 
-export const useAuth = () => {
+export const useAuth = (tokenKey = "admin_token") => {
   const [admin, setAdmin] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem("admin_token");
+    const token = localStorage.getItem(tokenKey);
     if (!token) {
       setLoading(false);
       return;
@@ -19,7 +19,7 @@ export const useAuth = () => {
         setAdmin(null);
       })
       .finally(() => setLoading(false));
-  }, []);
+  }, [tokenKey]);
 
   return { admin, setAdmin, loading };
 };
