@@ -30,11 +30,6 @@ const CamperLoginPage = () => {
     setLoading(true);
     try {
       const response = await loginAdmin(form);
-      if (response.admin?.role !== "camper") {
-        toast.error("Use camper credentials");
-        return;
-      }
-
       localStorage.removeItem("admin_token");
       localStorage.removeItem("camper_token");
       localStorage.setItem("camper_token", response.token);
