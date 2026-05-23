@@ -34,7 +34,7 @@ export const deleteRegistration = async (id) => {
 
 export const exportCsv = () => api.get("/api/export/csv", { responseType: "blob" });
 
-export const mergeAllPdfs = () => api.get("/api/export/pdf/merge", { responseType: "blob" });
+export const mergeAllPdfs = (params = {}) => api.get("/api/export/pdf/merge", { responseType: "blob", params });
 
 export const fetchAnalytics = async () => {
   const { data } = await api.get("/api/export/analytics");

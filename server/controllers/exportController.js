@@ -44,7 +44,13 @@ const exportCsv = asyncHandler(async (req, res) => {
 });
 
 const mergeAllPdfs = asyncHandler(async (req, res) => {
-  const registrations = await Registration.find({ generatedPdf: { $ne: "" } }).sort({ createdAt: -1 }).lean();
+  const campType = String(req.query.campType || "").trim();
+  const filter = { generatedPdf: { $ne: "" } };
+  if (campType === "junior-camp" || campType === "stay-in-camp") {
+    filter.campType = campType;
+  }
+
+  const registrations = await Registration.find(filter).sort({ createdAt: -1 }).lean();
   const filePaths = [];
 
   for (const item of registrations) {
