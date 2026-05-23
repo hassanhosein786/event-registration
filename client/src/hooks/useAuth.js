@@ -15,7 +15,7 @@ export const useAuth = (tokenKey = "admin_token") => {
     getCurrentAdmin()
       .then((data) => setAdmin(data.admin))
       .catch(() => {
-        localStorage.removeItem("admin_token");
+        localStorage.removeItem(tokenKey);
         setAdmin(null);
       })
       .finally(() => setLoading(false));

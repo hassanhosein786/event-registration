@@ -31,7 +31,8 @@ const originAllowed = (origin) =>
       return new RegExp(pattern).test(origin);
     }
     return allowedOrigin === origin;
-  });
+  }) ||
+  /^https?:\/\/(localhost|127\.0\.0\.1|\[::1\])(?::\d+)?$/.test(origin);
 
 app.use(helmet());
 app.use(
