@@ -77,15 +77,15 @@ const drawWrappedField = (page, font, label, value, x, y, maxWidth, size = 10, l
   const lines = wrapText(font, value || "-", maxWidth, size);
   lines.forEach((line, index) => {
     page.drawText(line, {
-      x: x + 95,
-      y: y - lineHeight * index,
+      x,
+      y: y - lineHeight * (index + 1),
       size,
       font,
       color: rgb(0.1, 0.1, 0.1)
     });
   });
 
-  return y - lineHeight * lines.length - 10;
+  return y - lineHeight * (lines.length + 1) - 8;
 };
 
 const wrapText = (font, text, maxWidth, size) => {
@@ -189,13 +189,13 @@ const createRegistrationPdf = async (registration) => {
   y -= rowGap;
   drawFieldPair(page, font, ["Phone", registration.phone], ["Email", registration.email], y);
   y -= rowGap;
-  y = drawWrappedField(page, font, "Address", registration.address, 50, y, 445);
-  y = drawWrappedField(page, font, "Medical Conditions", registration.medicalConditions || "-", 50, y, 445);
-  y = drawWrappedField(page, font, "Parent/Guardian Name", registration.parentGuardianContact?.name || "-", 50, y, 445);
-  y = drawWrappedField(page, font, "Relationship to Camper", registration.parentGuardianContact?.relationship || "-", 50, y, 445);
-  y = drawWrappedField(page, font, "Contact Number", registration.parentGuardianContact?.contactNumber || "-", 50, y, 445);
+  y = drawWrappedField(page, font, "Address", registration.address, 50, y, 485);
+  y = drawWrappedField(page, font, "Medical Conditions", registration.medicalConditions || "-", 50, y, 485);
+  y = drawWrappedField(page, font, "Parent/Guardian Name", registration.parentGuardianContact?.name || "-", 50, y, 485);
+  y = drawWrappedField(page, font, "Relationship to Camper", registration.parentGuardianContact?.relationship || "-", 50, y, 485);
+  y = drawWrappedField(page, font, "Contact Number", registration.parentGuardianContact?.contactNumber || "-", 50, y, 485);
   drawFieldPair(page, font, ["Consent Accepted", registration.consentAccepted ? "Yes" : "No"], ["Submitted At", new Date(registration.submittedAt || registration.createdAt).toLocaleString()], y);
-  y -= 36;
+  y -= 50;
 
   page.drawText("Consent to rules and regulations", {
     x: 35,
