@@ -199,48 +199,48 @@ const createRegistrationPdf = async (registration) => {
 
   page.drawText("Consent to rules and regulations", {
     x: 35,
-    y: 175,
+    y: 235,
     size: 12,
     font
   });
-  drawBox(page, 220, 171, 24);
+  drawBox(page, 220, 231, 24);
 
   page.drawText("Consent to field trips", {
     x: 35,
-    y: 138,
+    y: 198,
     size: 12,
     font
   });
-  drawBox(page, 220, 134, 24);
+  drawBox(page, 220, 194, 24);
 
   page.drawText("Fees Paid", {
     x: 385,
-    y: 175,
+    y: 235,
     size: 12,
     font
   });
-  drawBox(page, 475, 171, 24);
+  drawBox(page, 475, 231, 24);
 
-  drawLine(page, 50, 110, 205);
+  drawLine(page, 50, 170, 205);
   page.drawText("Camper Signature", {
     x: 50,
-    y: 96,
+    y: 156,
     size: 12,
     font
   });
 
-  drawLine(page, 390, 110, 545);
+  drawLine(page, 390, 170, 545);
   page.drawText("Parents Signature", {
     x: 390,
-    y: 96,
+    y: 156,
     size: 12,
     font
   });
 
-  drawLine(page, 170, 59, 420);
+  drawLine(page, 170, 115, 420);
   page.drawText("Date", {
     x: 280,
-    y: 51,
+    y: 107,
     size: 12,
     font,
     color: rgb(0.1, 0.1, 0.1)
