@@ -222,26 +222,26 @@ const createRegistrationPdf = async (registration) => {
   });
   drawBox(page, 475, footerBoxY, 24);
 
-  drawLine(page, 50, 170, 205);
+  drawLine(page, 50, 135, 205);
   page.drawText("Camper Signature", {
     x: 50,
-    y: 156,
+    y: 121,
     size: 12,
     font
   });
 
-  drawLine(page, 390, 170, 545);
+  drawLine(page, 390, 135, 545);
   page.drawText("Parents Signature", {
     x: 390,
-    y: 156,
+    y: 121,
     size: 12,
     font
   });
 
-  drawLine(page, 170, 115, 420);
+  drawLine(page, 170, 80, 420);
   page.drawText("Date", {
     x: 280,
-    y: 107,
+    y: 72,
     size: 12,
     font,
     color: rgb(0.1, 0.1, 0.1)
