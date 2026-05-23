@@ -65,7 +65,7 @@ const drawBox = (page, x, y, size = 20) => {
   });
 };
 
-const drawWrappedField = (page, font, label, value, x, y, maxWidth, size = 10, lineHeight = 13) => {
+const drawWrappedField = (page, font, label, value, x, y, maxWidth, size = 9.5, lineHeight = 12) => {
   page.drawText(`${label}:`, {
     x,
     y,
@@ -146,10 +146,10 @@ const createRegistrationPdf = async (registration) => {
 
   const logoBytes = await loadLogoPng();
   const logoImage = await pdfDoc.embedPng(logoBytes);
-  const logoDims = logoImage.scale(0.5);
+  const logoDims = logoImage.scale(0.42);
   page.drawImage(logoImage, {
     x: (595 - logoDims.width) / 2,
-    y: 652,
+    y: 675,
     width: logoDims.width,
     height: logoDims.height
   });
@@ -157,7 +157,7 @@ const createRegistrationPdf = async (registration) => {
   const title = registration.eventName || "Montrose Muslim Association Islamic Summer Camp 2026";
   page.drawText(title, {
     x: 50,
-    y: 575,
+    y: 610,
     size: fitFontSize(fontBold, title, 495, 20, 13),
     font: fontBold,
     color: rgb(0.08, 0.2, 0.45)
@@ -165,7 +165,7 @@ const createRegistrationPdf = async (registration) => {
 
   page.drawText(`Registration ID: ${registration.registrationId}`, {
     x: 50,
-    y: 528,
+    y: 560,
     size: 12,
     font,
     color: rgb(0.25, 0.25, 0.25)
@@ -173,14 +173,14 @@ const createRegistrationPdf = async (registration) => {
 
   page.drawText(`Camp Type: ${formatCampType(registration.campType)}`, {
     x: 50,
-    y: 490,
+    y: 525,
     size: 12,
     font,
     color: rgb(0.25, 0.25, 0.25)
   });
 
-  const rowGap = 22;
-  let y = 460;
+  const rowGap = 18;
+  let y = 475;
   drawFieldPair(page, font, ["Full Name", registration.fullName], ["School", registration.school], y);
   y -= rowGap;
   drawFieldPair(page, font, ["Class Level", registration.classLevel], ["Date of Birth", registration.dateOfBirth ? new Date(registration.dateOfBirth).toLocaleDateString() : "-"], y);
