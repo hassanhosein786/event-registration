@@ -16,11 +16,16 @@ const AdminExportPage = () => {
     window.URL.revokeObjectURL(url);
   };
 
-  const handleExportCsv = async () => {
+  const handleExportCsv = async (campType = "") => {
     setLoading(true);
     try {
-      const response = await exportCsv();
-      downloadBlob(new Blob([response.data], { type: "text/csv" }), "registrations.csv");
+      const response = await exportCsv(campType ? { campType } : {});
+      const fileName = campType === "junior-camp"
+        ? "junior-camp-registrations.csv"
+        : campType === "stay-in-camp"
+          ? "stay-in-camp-registrations.csv"
+          : "registrations.csv";
+      downloadBlob(new Blob([response.data], { type: "text/csv" }), fileName);
       toast.success("CSV exported");
     } catch (error) {
       toast.error(error?.response?.data?.message || "CSV export failed");
@@ -29,11 +34,16 @@ const AdminExportPage = () => {
     }
   };
 
-  const handleMerge = async () => {
+  const handleMerge = async (campType = "") => {
     setLoading(true);
     try {
-      const response = await mergeAllPdfs();
-      downloadBlob(new Blob([response.data], { type: "application/pdf" }), "merged-registrations.pdf");
+      const response = await mergeAllPdfs(campType ? { campType } : {});
+      const fileName = campType === "junior-camp"
+        ? "junior-camp-merged-registrations.pdf"
+        : campType === "stay-in-camp"
+          ? "stay-in-camp-merged-registrations.pdf"
+          : "merged-registrations.pdf";
+      downloadBlob(new Blob([response.data], { type: "application/pdf" }), fileName);
       toast.success("Merged PDF downloaded");
     } catch (error) {
       toast.error(error?.response?.data?.message || "Merge failed");
@@ -62,7 +72,7 @@ const AdminExportPage = () => {
           title="Export CSV"
           description="Download a spreadsheet-friendly registration export."
           actionLabel="Download CSV"
-          onAction={handleExportCsv}
+          onAction={() => handleExportCsv()}
           loading={loading}
         />
         <ActionCard
@@ -70,7 +80,7 @@ const AdminExportPage = () => {
           title="Merge PDFs"
           description="Create one combined PDF for all registrations."
           actionLabel="Download merged PDF"
-          onAction={handleMerge}
+          onAction={() => handleMerge()}
           loading={loading}
         />
         <ActionCard
@@ -80,6 +90,41 @@ const AdminExportPage = () => {
           actionLabel="Open print view"
           onAction={() => window.open("/admin/print", "_blank")}
           loading={false}
+        />
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2">
+        <ActionCard
+          icon={Download}
+          title="CSV by camp"
+          description="Export only one camp group into a separate CSV file."
+          actionLabel="Junior Camp CSV"
+          onAction={() => handleExportCsv("junior-camp")}
+          loading={loading}
+        />
+        <ActionCard
+          icon={Download}
+          title="CSV by camp"
+          description="Export only one camp group into a separate CSV file."
+          actionLabel="Stay in Camp CSV"
+          onAction={() => handleExportCsv("stay-in-camp")}
+          loading={loading}
+        />
+        <ActionCard
+          icon={FileText}
+          title="Merge PDFs by camp"
+          description="Download one combined PDF for a single camp group."
+          actionLabel="Junior Camp PDF"
+          onAction={() => handleMerge("junior-camp")}
+          loading={loading}
+        />
+        <ActionCard
+          icon={FileText}
+          title="Merge PDFs by camp"
+          description="Download one combined PDF for a single camp group."
+          actionLabel="Stay in Camp PDF"
+          onAction={() => handleMerge("stay-in-camp")}
+          loading={loading}
         />
       </div>
     </div>
