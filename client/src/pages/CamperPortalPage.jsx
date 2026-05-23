@@ -1,11 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
+import Button from "../components/Button";
 import Input from "../components/Input";
+import Modal from "../components/Modal";
 import LoadingSpinner from "../components/LoadingSpinner";
 import Pagination from "../components/Pagination";
-import RegistrationsTable from "../components/RegistrationsTable";
 import { fetchRegistrations } from "../services/registrationService";
 import { useDebounce } from "../hooks/useDebounce";
+import { calculateAge, formatDate, formatDateTime } from "../utils/formatters";
+import { campTypeOptions } from "../utils/constants";
+
+const formatCampType = (value) => campTypeOptions.find((option) => option.value === value)?.label || value || "-";
 
 const CamperPortalPage = () => {
   const [registrations, setRegistrations] = useState([]);
@@ -14,6 +19,7 @@ const CamperPortalPage = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [search, setSearch] = useState("");
+  const [selectedRow, setSelectedRow] = useState(null);
   const debouncedSearch = useDebounce(search, 300);
 
   const query = useMemo(
@@ -79,7 +85,32 @@ const CamperPortalPage = () => {
         />
       </div>
 
-      <RegistrationsTable data={registrations} showActions={false} />
+      <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5">
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-white/10">
+            <thead className="bg-slate-950/60">
+              <tr>
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">Name</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">Age</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">View</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/5">
+              {registrations.map((row) => (
+                <tr key={row._id} className="hover:bg-white/5">
+                  <td className="px-4 py-4 align-top text-sm text-slate-200">{row.fullName}</td>
+                  <td className="px-4 py-4 align-top text-sm text-slate-200">{row.age ?? calculateAge(row.dateOfBirth)}</td>
+                  <td className="px-4 py-4 align-top text-sm text-slate-200">
+                    <Button className="px-3 py-2 text-xs" onClick={() => setSelectedRow(row)}>
+                      View
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
 
       <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
 
@@ -88,8 +119,39 @@ const CamperPortalPage = () => {
           No camper records found.
         </div>
       )}
+
+      <Modal open={Boolean(selectedRow)} title={selectedRow?.fullName || "Camper details"} onClose={() => setSelectedRow(null)} confirmText="Close" onConfirm={() => setSelectedRow(null)}>
+        {selectedRow && (
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Detail label="Registration ID" value={selectedRow.registrationId} />
+            <Detail label="Camp Type" value={formatCampType(selectedRow.campType)} />
+            <Detail label="Age" value={selectedRow.age ?? calculateAge(selectedRow.dateOfBirth)} />
+            <Detail label="Gender" value={selectedRow.gender || "-"} />
+            <Detail label="School" value={selectedRow.school || "-"} />
+            <Detail label="Class Level" value={selectedRow.classLevel || "-"} />
+            <Detail label="Date of Birth" value={formatDate(selectedRow.dateOfBirth)} />
+            <Detail label="Phone" value={selectedRow.phone || "-"} />
+            <Detail label="Email" value={selectedRow.email || "-"} />
+            <Detail label="Address" value={selectedRow.address || "-"} />
+            <Detail label="Medical Conditions" value={selectedRow.medicalConditions || "-"} />
+            <Detail label="Parent/Guardian Name" value={selectedRow.parentGuardianContact?.name || "-"} />
+            <Detail label="Relationship" value={selectedRow.parentGuardianContact?.relationship || "-"} />
+            <Detail label="Contact Number" value={selectedRow.parentGuardianContact?.contactNumber || "-"} />
+            <Detail label="Consent Accepted" value={selectedRow.consentAccepted ? "Yes" : "No"} />
+            <Detail label="Rules Accepted" value={selectedRow.consentRulesAccepted ? "Yes" : "No"} />
+            <Detail label="Submitted At" value={formatDateTime(selectedRow.submittedAt)} />
+          </div>
+        )}
+      </Modal>
     </div>
   );
 };
+
+const Detail = ({ label, value }) => (
+  <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
+    <div className="text-[11px] uppercase tracking-[0.18em] text-slate-500">{label}</div>
+    <div className="mt-1 break-words text-sm text-slate-200">{value}</div>
+  </div>
+);
 
 export default CamperPortalPage;
