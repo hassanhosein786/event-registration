@@ -139,27 +139,45 @@ const PublicRegistrationPage = () => {
             <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-200">Camp Rules and Guidelines</h3>
             <div className="mt-4 space-y-4 text-sm leading-6 text-slate-200">
               <ol className="space-y-2 pl-5">
-                <li>Proper Islamic attire must be worn; i.e., for sisters, only hands, face, and feet can show, while for brothers, long pants and a jersey or shirt are allowed.</li>
-                <li>Amir's instruction should be adhered to at all times.</li>
-                <li>Absolutely no cellular phones allowed. In case of emergency, parents can contact any of the following: 792-0718, 720-3060, 737-2096.</li>
-                <li>Absolutely no valuables such as jewelry, electronic items, large amounts of money, etc. Camp organizers will not be responsible if these items are misplaced.</li>
-                <li>No one would be allowed to leave the compound without the Ameer's permission.</li>
-                <li>Absolutely no playing of cards, no smoking, or illegal activities will be allowed. Anyone caught will be sent home immediately.</li>
-                <li>All other rules and regulations must be obeyed.</li>
-                <li>The organizers reserve the right to refuse admission or to suspend any camper who does not comply with the rules of the camp.</li>
+                <li>
+                  <strong>1.</strong> Proper Islamic attire must be worn; i.e., for sisters, only hands, face, and feet can show, while for brothers, long pants and a jersey or shirt are allowed.
+                </li>
+                <li>
+                  <strong>2.</strong> Ameer's instruction should be adhered to at all times.
+                </li>
+                <li>
+                  <strong>3.</strong> Absolutely <strong><u>NO</u></strong> cellular phones allowed. In case of emergency, parents can contact any of the following: 792-0718, 720-3060, 737-2096, 782-9416.
+                </li>
+                <li>
+                  <strong>4.</strong> Absolutely <strong><u>NO</u></strong> valuables such as jewelry, electronic items, large amounts of money, etc. Camp organizers will not be responsible if these items are misplaced.
+                </li>
+                <li>
+                  <strong>5.</strong> No one would be allowed to leave the compound without the Ameer's permission.
+                </li>
+                <li>
+                  <strong>6.</strong> Absolutely <strong><u>NO</u></strong> playing cards, <strong><u>NO SMOKING</u></strong>, <strong><u>VAPING</u></strong>, or illegal activities will be allowed. <strong>Anyone found involved in these acts will be sent home immediately.</strong>
+                </li>
+                <li>
+                  <strong>7.</strong> All other rules and regulations must be obeyed.
+                </li>
+                <li>
+                  <strong>8.</strong> The organizers reserve the right to refuse admission or to suspend any camper who does not comply with the rules of the camp.
+                </li>
               </ol>
 
               <div>
-                <p className="font-semibold text-white">Campers must have the following personal items:</p>
+                <p className="font-semibold text-white">
+                  Campers <span className="underline decoration-1 underline-offset-2">MUST</span> have the following personal items:
+                </p>
                 <ol className="mt-2 space-y-2 pl-5">
-                  <li>Sneakers</li>
-                  <li>Bed sheets</li>
-                  <li>Thick blanket</li>
+                  <li><strong>SNEAKERS</strong></li>
+                  <li><strong>BED SHEETS</strong></li>
+                  <li><strong>THICK BLANKET</strong></li>
                   <li>Pillow</li>
                   <li>Toiletries</li>
                   <li>Towels</li>
                   <li>Sportswear</li>
-                  <li>Modest swimwear</li>
+                  <li>Modest Swimwear</li>
                   <li>Topi for boys</li>
                 </ol>
               </div>
@@ -168,12 +186,16 @@ const PublicRegistrationPage = () => {
                 A thick blanket and warm sleepwear are necessary as the masjid is fully air conditioned.
               </p>
 
+              <p className="font-semibold underline decoration-1 underline-offset-4">
+                There is also a Registration Fee of <strong>$200.00</strong> for campers between the ages of 9 to 19 and a Registration Fee of <strong>$150.00</strong> for campers between the ages of 4 to 8, which must be paid on or by <strong>July 11<sup>th</sup>, 2026</strong>. This is to help cover the costs of resources for classes and outdoor activities, etc.
+              </p>
+
               <p className="text-rose-200">
                 Failure to comply with any of the camp rules and guidelines may result in disciplinary action,
                 including suspension or immediate dismissal from the camp at the discretion of the organizers.
               </p>
 
-              <p className="font-semibold text-brand-100">
+              <p className="font-bold uppercase text-brand-100">
                 Visiting hours for parents are from Isha to 10PM.
               </p>
             </div>

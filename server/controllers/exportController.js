@@ -1,9 +1,9 @@
-const path = require("path");
+const fs = require("fs/promises");
 const { stringify } = require("csv-stringify/sync");
 const asyncHandler = require("../middleware/asyncHandler");
 const Registration = require("../models/Registration");
 const { mergePdfFiles } = require("../services/pdfService");
-const { pdfsDir } = require("../utils/filePaths");
+const { ensureRegistrationPdf } = require("../services/registrationPdfService");
 
 const formatCampType = (value) => {
   if (value === "junior-camp") return "Junior Camp";
@@ -45,7 +45,26 @@ const exportCsv = asyncHandler(async (req, res) => {
 
 const mergeAllPdfs = asyncHandler(async (req, res) => {
   const registrations = await Registration.find({ generatedPdf: { $ne: "" } }).sort({ createdAt: -1 }).lean();
-  const filePaths = registrations.map((item) => path.join(__dirname, "..", "public", item.generatedPdf.replace(/^\//, "")));
+  const filePaths = [];
+
+  for (const item of registrations) {
+    const registration = await Registration.findById(item._id);
+    if (!registration) continue;
+
+    const pdfInfo = await ensureRegistrationPdf(registration);
+    if (pdfInfo.regenerated) {
+      registration.generatedPdf = pdfInfo.publicPath;
+      await registration.save();
+    }
+
+    try {
+      await fs.access(pdfInfo.absolutePath);
+      filePaths.push(pdfInfo.absolutePath);
+    } catch (error) {
+      void error;
+    }
+  }
+
   const merged = await mergePdfFiles(filePaths, "merged-registrations.pdf");
   res.download(merged.absolutePath, "merged-registrations.pdf");
 });
