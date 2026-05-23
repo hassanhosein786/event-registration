@@ -195,7 +195,7 @@ const createRegistrationPdf = async (registration) => {
   y = drawWrappedField(page, font, "Relationship to Camper", registration.parentGuardianContact?.relationship || "-", 50, y, 485);
   y = drawWrappedField(page, font, "Contact Number", registration.parentGuardianContact?.contactNumber || "-", 50, y, 485);
   drawFieldPair(page, font, ["Consent Accepted", registration.consentAccepted ? "Yes" : "No"], ["Submitted At", new Date(registration.submittedAt || registration.createdAt).toLocaleString()], y);
-  const footerTop = Math.max(130, Math.min(170, y - 60));
+  const footerTop = Math.max(140, Math.min(175, y - 55));
   const footerBoxY = footerTop - 4;
   const footerLineY = footerTop - 45;
   const footerDateLineY = footerTop - 85;
