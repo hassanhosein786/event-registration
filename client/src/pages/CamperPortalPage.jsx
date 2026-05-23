@@ -5,10 +5,12 @@ import Input from "../components/Input";
 import Modal from "../components/Modal";
 import LoadingSpinner from "../components/LoadingSpinner";
 import Pagination from "../components/Pagination";
-import { fetchRegistrations } from "../services/registrationService";
+import StatCard from "../components/StatCard";
+import { fetchRegistrations, fetchRegistrationSummary } from "../services/registrationService";
 import { useDebounce } from "../hooks/useDebounce";
 import { calculateAge, formatDate, formatDateTime } from "../utils/formatters";
 import { campTypeOptions } from "../utils/constants";
+import { FileText, ShieldCheck } from "lucide-react";
 
 const formatCampType = (value) => campTypeOptions.find((option) => option.value === value)?.label || value || "-";
 
@@ -16,6 +18,7 @@ const CamperPortalPage = () => {
   const [registrations, setRegistrations] = useState([]);
   const [initialLoading, setInitialLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [summary, setSummary] = useState(null);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [search, setSearch] = useState("");
@@ -39,16 +42,20 @@ const CamperPortalPage = () => {
 
   useEffect(() => {
     const load = async () => {
-      setRefreshing(true);
-      try {
-        const response = await fetchRegistrations(query);
+    setRefreshing(true);
+    try {
+        const [response, stats] = await Promise.all([
+          fetchRegistrations(query),
+          fetchRegistrationSummary()
+        ]);
         setRegistrations(response.data);
         setTotalPages(response.meta.totalPages);
+        setSummary(stats.data);
       } catch (error) {
-        toast.error(error?.response?.data?.message || "Failed to load camper records");
-      } finally {
-        setInitialLoading(false);
-        setRefreshing(false);
+      toast.error(error?.response?.data?.message || "Failed to load camper records");
+    } finally {
+      setInitialLoading(false);
+      setRefreshing(false);
       }
     };
 
@@ -64,6 +71,13 @@ const CamperPortalPage = () => {
           Updating camper records...
         </div>
       )}
+      <div className="grid gap-3 grid-cols-2 xl:grid-cols-5">
+        <StatCard label="Total registrations" value={summary?.total || 0} icon={ShieldCheck} />
+        <StatCard label="Stay in Camp" value={summary?.stayInCamp || 0} icon={FileText} accent="green" />
+        <StatCard label="Junior Camp" value={summary?.juniorCamp || 0} icon={FileText} accent="amber" />
+        <StatCard label="Male" value={summary?.male || 0} icon={FileText} accent="amber" />
+        <StatCard label="Female" value={summary?.female || 0} icon={FileText} accent="rose" />
+      </div>
       <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-glow">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>

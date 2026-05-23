@@ -3,6 +3,7 @@ const upload = require("../middleware/uploadMiddleware");
 const {
   createRegistration,
   getRegistrations,
+  getRegistrationSummary,
   getRegistrationById,
   getRegistrationByPublicId,
   deleteRegistration,
@@ -14,6 +15,7 @@ const router = express.Router();
 
 router.post("/", upload.array("attachments", 4), createRegistration);
 router.get("/", protectAdmin, allowRoles("admin", "superadmin", "camper"), getRegistrations);
+router.get("/summary", protectAdmin, allowRoles("admin", "superadmin", "camper"), getRegistrationSummary);
 router.get("/verify/:registrationId", getPublicVerification);
 router.get("/public/:registrationId", getRegistrationByPublicId);
 router.get("/:id", protectAdmin, allowRoles("admin", "superadmin", "camper"), getRegistrationById);

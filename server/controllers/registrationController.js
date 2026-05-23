@@ -239,6 +239,26 @@ const getRegistrations = asyncHandler(async (req, res) => {
   });
 });
 
+const getRegistrationSummary = asyncHandler(async (req, res) => {
+  const [total, stayInCamp, juniorCamp, male, female] = await Promise.all([
+    Registration.countDocuments(),
+    Registration.countDocuments({ campType: "stay-in-camp" }),
+    Registration.countDocuments({ campType: "junior-camp" }),
+    Registration.countDocuments({ gender: "male" }),
+    Registration.countDocuments({ gender: "female" })
+  ]);
+
+  res.json({
+    data: {
+      total,
+      stayInCamp,
+      juniorCamp,
+      male,
+      female
+    }
+  });
+});
+
 const getRegistrationById = asyncHandler(async (req, res) => {
   const registration = await Registration.findById(req.params.id).lean();
   if (!registration) {
@@ -314,6 +334,7 @@ const getPublicVerification = asyncHandler(async (req, res) => {
 module.exports = {
   createRegistration,
   getRegistrations,
+  getRegistrationSummary,
   getRegistrationById,
   getRegistrationByPublicId,
   deleteRegistration,

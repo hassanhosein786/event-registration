@@ -12,6 +12,11 @@ export const fetchRegistrations = async (params = {}) => {
   return data;
 };
 
+export const fetchRegistrationSummary = async () => {
+  const { data } = await api.get("/api/registrations/summary");
+  return data;
+};
+
 export const fetchRegistration = async (id) => {
   const { data } = await api.get(`/api/registrations/${id}`);
   return data;
