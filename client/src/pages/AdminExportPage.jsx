@@ -71,59 +71,20 @@ const AdminExportPage = () => {
           icon={Download}
           title="Export CSV"
           description="Download a spreadsheet-friendly registration export."
-          actionLabel="Download CSV"
-          onAction={() => handleExportCsv()}
+          actions={[
+            { label: "Junior Camp CSV", onClick: () => handleExportCsv("junior-camp") },
+            { label: "Stay in Camp CSV", onClick: () => handleExportCsv("stay-in-camp") }
+          ]}
           loading={loading}
         />
         <ActionCard
           icon={FileText}
           title="Merge PDFs"
           description="Create one combined PDF for all registrations."
-          actionLabel="Download merged PDF"
-          onAction={() => handleMerge()}
-          loading={loading}
-        />
-        <ActionCard
-          icon={Printer}
-          title="Print all"
-          description="Use the print view to generate paper copies."
-          actionLabel="Open print view"
-          onAction={() => window.open("/admin/print", "_blank")}
-          loading={false}
-        />
-      </div>
-
-      <div className="grid gap-4 md:grid-cols-2">
-        <ActionCard
-          icon={Download}
-          title="CSV by camp"
-          description="Export only one camp group into a separate CSV file."
-          actionLabel="Junior Camp CSV"
-          onAction={() => handleExportCsv("junior-camp")}
-          loading={loading}
-        />
-        <ActionCard
-          icon={Download}
-          title="CSV by camp"
-          description="Export only one camp group into a separate CSV file."
-          actionLabel="Stay in Camp CSV"
-          onAction={() => handleExportCsv("stay-in-camp")}
-          loading={loading}
-        />
-        <ActionCard
-          icon={FileText}
-          title="Merge PDFs by camp"
-          description="Download one combined PDF for a single camp group."
-          actionLabel="Junior Camp PDF"
-          onAction={() => handleMerge("junior-camp")}
-          loading={loading}
-        />
-        <ActionCard
-          icon={FileText}
-          title="Merge PDFs by camp"
-          description="Download one combined PDF for a single camp group."
-          actionLabel="Stay in Camp PDF"
-          onAction={() => handleMerge("stay-in-camp")}
+          actions={[
+            { label: "Junior Camp PDF", onClick: () => handleMerge("junior-camp") },
+            { label: "Stay in Camp PDF", onClick: () => handleMerge("stay-in-camp") }
+          ]}
           loading={loading}
         />
       </div>
@@ -131,7 +92,7 @@ const AdminExportPage = () => {
   );
 };
 
-const ActionCard = ({ icon: Icon, title, description, actionLabel, onAction, loading }) => (
+const ActionCard = ({ icon: Icon, title, description, actions, loading }) => (
   <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
     <div className="flex items-center gap-3">
       <div className="rounded-2xl bg-white/5 p-3 text-brand-200">
@@ -142,10 +103,12 @@ const ActionCard = ({ icon: Icon, title, description, actionLabel, onAction, loa
         <p className="text-sm text-slate-400">{description}</p>
       </div>
     </div>
-    <div className="mt-5">
-      <Button onClick={onAction} disabled={loading}>
-        {actionLabel}
-      </Button>
+    <div className="mt-5 flex flex-wrap gap-3">
+      {actions.map((action) => (
+        <Button key={action.label} onClick={action.onClick} disabled={loading}>
+          {action.label}
+        </Button>
+      ))}
     </div>
   </div>
 );
