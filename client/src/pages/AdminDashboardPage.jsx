@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Download, FileText, Printer, ShieldCheck } from "lucide-react";
+import { FileText, ShieldCheck } from "lucide-react";
 import toast from "react-hot-toast";
-import Button from "../components/Button";
 import Input from "../components/Input";
 import Select from "../components/Select";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -10,7 +9,7 @@ import StatCard from "../components/StatCard";
 import RegistrationsTable from "../components/RegistrationsTable";
 import Modal from "../components/Modal";
 import Pagination from "../components/Pagination";
-import { fetchRegistrations, deleteRegistration, exportCsv, mergeAllPdfs, fetchAnalytics } from "../services/registrationService";
+import { fetchRegistrations, deleteRegistration, fetchAnalytics } from "../services/registrationService";
 import { useDebounce } from "../hooks/useDebounce";
 import { sortOptions, genderOptions, campTypeOptions } from "../utils/constants";
 import { API_BASE_URL } from "../utils/apiBase";
@@ -87,28 +86,6 @@ const AdminDashboardPage = () => {
     }
   };
 
-  const handleExportCsv = async () => {
-    const response = await exportCsv();
-    const blob = new Blob([response.data], { type: "text/csv" });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "registrations.csv";
-    a.click();
-    window.URL.revokeObjectURL(url);
-  };
-
-  const handleMergePdfs = async () => {
-    const response = await mergeAllPdfs();
-    const blob = new Blob([response.data], { type: "application/pdf" });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "merged-registrations.pdf";
-    a.click();
-    window.URL.revokeObjectURL(url);
-  };
-
   const handleDownloadPdf = (row) => {
     const href = `${API_BASE_URL}${row.generatedPdf}`;
     const a = document.createElement("a");
@@ -147,20 +124,6 @@ const AdminDashboardPage = () => {
             <Select label="Filter by gender" value={gender} onChange={(e) => setGender(e.target.value)} options={genderOptions} />
             <Select label="Filter by camp type" value={campType} onChange={(e) => setCampType(e.target.value)} options={campTypeOptions} />
             <Select label="Sort by" value={sortValue} onChange={(e) => setSortValue(e.target.value)} options={sortOptions} />
-          </div>
-          <div className="flex flex-wrap gap-3 xl:flex-nowrap">
-            <Button variant="secondary" onClick={handleExportCsv}>
-              <Download className="mr-2 h-4 w-4" />
-              Export CSV
-            </Button>
-            <Button variant="secondary" onClick={handleMergePdfs}>
-              <Printer className="mr-2 h-4 w-4" />
-              Merge PDFs
-            </Button>
-            <Button variant="secondary" onClick={() => navigate("/admin/print")}>
-              <FileText className="mr-2 h-4 w-4" />
-              Print All
-            </Button>
           </div>
         </div>
       </div>
