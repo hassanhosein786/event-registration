@@ -137,9 +137,6 @@ const CamperPortalPage = () => {
             <Detail label="Parent/Guardian Name" value={selectedRow.parentGuardianContact?.name || "-"} />
             <Detail label="Relationship" value={selectedRow.parentGuardianContact?.relationship || "-"} />
             <Detail label="Contact Number" value={selectedRow.parentGuardianContact?.contactNumber || "-"} />
-            <Detail label="Consent Accepted" value={selectedRow.consentAccepted ? "Yes" : "No"} />
-            <Detail label="Rules Accepted" value={selectedRow.consentRulesAccepted ? "Yes" : "No"} />
-            <Detail label="Submitted At" value={formatDateTime(selectedRow.submittedAt)} />
           </div>
         )}
       </Modal>
