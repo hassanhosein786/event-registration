@@ -129,7 +129,7 @@ const CamperPortalPage = () => {
         hideCancel
       >
         {selectedRow && (
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-3">
             <Detail label="Registration ID" value={selectedRow.registrationId} />
             <Detail label="Camp Type" value={formatCampType(selectedRow.campType)} />
             <Detail label="Age" value={selectedRow.age ?? calculateAge(selectedRow.dateOfBirth)} />
@@ -152,9 +152,9 @@ const CamperPortalPage = () => {
 };
 
 const Detail = ({ label, value }) => (
-  <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
-    <div className="text-[11px] uppercase tracking-[0.18em] text-slate-500">{label}</div>
-    <div className="mt-1 break-words text-sm text-slate-200">{value}</div>
+  <div className="rounded-2xl border border-white/10 bg-white/5 p-2.5 sm:p-3">
+    <div className="text-[10px] uppercase tracking-[0.18em] text-slate-500 sm:text-[11px]">{label}</div>
+    <div className="mt-1 break-words text-sm text-slate-200 sm:text-base">{value}</div>
   </div>
 );
 

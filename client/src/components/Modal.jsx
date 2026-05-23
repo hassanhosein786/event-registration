@@ -13,11 +13,16 @@ const Modal = ({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 px-4 py-6">
-      <div className="max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-3xl border border-white/10 bg-slate-950 p-6 shadow-glow">
-        <h3 className="text-lg font-semibold text-white">{title}</h3>
-        <div className="mt-3 text-sm text-slate-300">{children}</div>
-        <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+    <div className="fixed inset-0 z-50 flex items-stretch justify-center bg-slate-950/80 px-0 py-0 sm:items-center sm:px-4 sm:py-6">
+      <div className="flex h-screen w-full flex-col overflow-hidden rounded-none border-0 border-white/10 bg-slate-950 shadow-glow sm:max-h-[85vh] sm:max-w-lg sm:rounded-3xl sm:border">
+        <div className="border-b border-white/10 px-4 py-4 sm:px-6">
+          <h3 className="text-base font-semibold text-white sm:text-lg">{title}</h3>
+        </div>
+        <div className="flex-1 overflow-y-auto px-4 py-4 text-sm text-slate-300 sm:px-6">
+          {children}
+        </div>
+        <div className="border-t border-white/10 px-4 py-4 sm:px-6">
+          <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
           {!hideCancel && (
             <Button variant="secondary" className="w-full sm:w-auto" onClick={onClose}>
               Cancel
@@ -26,6 +31,7 @@ const Modal = ({
           <Button variant={danger ? "danger" : "primary"} className="w-full sm:w-auto" onClick={onConfirm}>
             {confirmText}
           </Button>
+          </div>
         </div>
       </div>
     </div>
