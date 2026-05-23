@@ -143,7 +143,7 @@ const AdminDashboardPage = () => {
       <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
         <div className="flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4 xl:flex-1">
-            <Input label="Search" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Name, email, phone, registration ID" />
+            <Input label="Search" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Name, email, phone, ID" />
             <Select label="Filter by gender" value={gender} onChange={(e) => setGender(e.target.value)} options={genderOptions} />
             <Select label="Filter by camp type" value={campType} onChange={(e) => setCampType(e.target.value)} options={campTypeOptions} />
             <Select label="Sort by" value={sortValue} onChange={(e) => setSortValue(e.target.value)} options={sortOptions} />

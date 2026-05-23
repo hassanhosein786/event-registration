@@ -16,7 +16,7 @@ const formatCampType = (value) => campTypeOptions.find((option) => option.value 
 const RegistrationsTable = ({ data, onView, onDelete, onPrint, onDownload }) => {
   const columns = [
     columnHelper.accessor("registrationId", {
-      header: "Registration ID",
+      header: "ID",
       cell: (info) => <span className="font-mono text-xs text-brand-200">{info.getValue()}</span>
     }),
     columnHelper.accessor("fullName", { header: "Name" }),
