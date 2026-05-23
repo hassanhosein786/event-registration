@@ -65,7 +65,7 @@ const drawBox = (page, x, y, size = 20) => {
   });
 };
 
-const drawWrappedField = (page, font, label, value, x, y, maxWidth, size = 11, lineHeight = 14) => {
+const drawWrappedField = (page, font, label, value, x, y, maxWidth, size = 10, lineHeight = 13) => {
   page.drawText(`${label}:`, {
     x,
     y,
@@ -179,7 +179,7 @@ const createRegistrationPdf = async (registration) => {
     color: rgb(0.25, 0.25, 0.25)
   });
 
-  const rowGap = 24;
+  const rowGap = 22;
   let y = 460;
   drawFieldPair(page, font, ["Full Name", registration.fullName], ["School", registration.school], y);
   y -= rowGap;
@@ -189,58 +189,58 @@ const createRegistrationPdf = async (registration) => {
   y -= rowGap;
   drawFieldPair(page, font, ["Phone", registration.phone], ["Email", registration.email], y);
   y -= rowGap;
-  y = drawWrappedField(page, font, "Address", registration.address, 50, y, 445, 11, 14);
-  y = drawWrappedField(page, font, "Medical Conditions", registration.medicalConditions || "-", 50, y, 445, 11, 14);
-  y = drawWrappedField(page, font, "Parent/Guardian Name", registration.parentGuardianContact?.name || "-", 50, y, 445, 11, 14);
-  y = drawWrappedField(page, font, "Relationship to Camper", registration.parentGuardianContact?.relationship || "-", 50, y, 445, 11, 14);
-  y = drawWrappedField(page, font, "Contact Number", registration.parentGuardianContact?.contactNumber || "-", 50, y, 445, 11, 14);
+  y = drawWrappedField(page, font, "Address", registration.address, 50, y, 445);
+  y = drawWrappedField(page, font, "Medical Conditions", registration.medicalConditions || "-", 50, y, 445);
+  y = drawWrappedField(page, font, "Parent/Guardian Name", registration.parentGuardianContact?.name || "-", 50, y, 445);
+  y = drawWrappedField(page, font, "Relationship to Camper", registration.parentGuardianContact?.relationship || "-", 50, y, 445);
+  y = drawWrappedField(page, font, "Contact Number", registration.parentGuardianContact?.contactNumber || "-", 50, y, 445);
   drawFieldPair(page, font, ["Consent Accepted", registration.consentAccepted ? "Yes" : "No"], ["Submitted At", new Date(registration.submittedAt || registration.createdAt).toLocaleString()], y);
-  y -= rowGap;
+  y -= 36;
 
   page.drawText("Consent to rules and regulations", {
     x: 35,
-    y: 205,
+    y: 120,
     size: 12,
     font
   });
-  drawBox(page, 220, 201, 24);
+  drawBox(page, 220, 116, 24);
 
   page.drawText("Consent to field trips", {
     x: 35,
-    y: 168,
+    y: 83,
     size: 12,
     font
   });
-  drawBox(page, 220, 164, 24);
+  drawBox(page, 220, 79, 24);
 
   page.drawText("Fees Paid", {
     x: 385,
-    y: 205,
+    y: 120,
     size: 12,
     font
   });
-  drawBox(page, 475, 201, 24);
+  drawBox(page, 475, 116, 24);
 
-  drawLine(page, 50, 135, 205);
+  drawLine(page, 50, 55, 205);
   page.drawText("Camper Signature", {
     x: 50,
-    y: 121,
+    y: 41,
     size: 12,
     font
   });
 
-  drawLine(page, 390, 135, 545);
+  drawLine(page, 390, 55, 545);
   page.drawText("Parents Signature", {
     x: 390,
-    y: 121,
+    y: 41,
     size: 12,
     font
   });
 
-  drawLine(page, 170, 84, 420);
+  drawLine(page, 170, 4, 420);
   page.drawText("Date", {
     x: 280,
-    y: 76,
+    y: -4,
     size: 12,
     font,
     color: rgb(0.1, 0.1, 0.1)
