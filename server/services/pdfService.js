@@ -195,52 +195,55 @@ const createRegistrationPdf = async (registration) => {
   y = drawWrappedField(page, font, "Relationship to Camper", registration.parentGuardianContact?.relationship || "-", 50, y, 485);
   y = drawWrappedField(page, font, "Contact Number", registration.parentGuardianContact?.contactNumber || "-", 50, y, 485);
   drawFieldPair(page, font, ["Consent Accepted", registration.consentAccepted ? "Yes" : "No"], ["Submitted At", new Date(registration.submittedAt || registration.createdAt).toLocaleString()], y);
-  y -= 30;
+  const footerTop = Math.min(235, y - 20);
+  const footerBoxY = footerTop - 4;
+  const footerLineY = footerTop - 65;
+  const footerDateLineY = footerTop - 120;
 
   page.drawText("Consent to rules and regulations", {
     x: 35,
-    y: 235,
+    y: footerTop,
     size: 12,
     font
   });
-  drawBox(page, 220, 231, 24);
+  drawBox(page, 220, footerBoxY, 24);
 
   page.drawText("Consent to field trips", {
     x: 35,
-    y: 198,
+    y: footerTop - 37,
     size: 12,
     font
   });
-  drawBox(page, 220, 194, 24);
+  drawBox(page, 220, footerTop - 41, 24);
 
   page.drawText("Fees Paid", {
     x: 385,
-    y: 235,
+    y: footerTop,
     size: 12,
     font
   });
-  drawBox(page, 475, 231, 24);
+  drawBox(page, 475, footerBoxY, 24);
 
-  drawLine(page, 50, 170, 205);
+  drawLine(page, 50, footerLineY, 205);
   page.drawText("Camper Signature", {
     x: 50,
-    y: 156,
+    y: footerLineY - 14,
     size: 12,
     font
   });
 
-  drawLine(page, 390, 170, 545);
+  drawLine(page, 390, footerLineY, 545);
   page.drawText("Parents Signature", {
     x: 390,
-    y: 156,
+    y: footerLineY - 14,
     size: 12,
     font
   });
 
-  drawLine(page, 170, 115, 420);
+  drawLine(page, 170, footerDateLineY, 420);
   page.drawText("Date", {
     x: 280,
-    y: 107,
+    y: footerDateLineY - 8,
     size: 12,
     font,
     color: rgb(0.1, 0.1, 0.1)
