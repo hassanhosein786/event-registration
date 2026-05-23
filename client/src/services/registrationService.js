@@ -32,7 +32,7 @@ export const deleteRegistration = async (id) => {
   return data;
 };
 
-export const exportCsv = () => api.get("/api/export/csv", { responseType: "blob" });
+export const exportCsv = (params = {}) => api.get("/api/export/csv", { responseType: "blob", params });
 
 export const mergeAllPdfs = (params = {}) => api.get("/api/export/pdf/merge", { responseType: "blob", params });
 

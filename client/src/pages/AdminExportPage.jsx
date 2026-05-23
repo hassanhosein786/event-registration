@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Archive, Download, Printer, FileText } from "lucide-react";
+import { Archive, Download, FileText } from "lucide-react";
 import toast from "react-hot-toast";
 import Button from "../components/Button";
 import { exportCsv, mergeAllPdfs } from "../services/registrationService";
@@ -16,15 +16,18 @@ const AdminExportPage = () => {
     window.URL.revokeObjectURL(url);
   };
 
-  const handleExportCsv = async (campType = "") => {
+  const handleExportCsv = async (campType = "", gender = "") => {
     setLoading(true);
     try {
-      const response = await exportCsv(campType ? { campType } : {});
-      const fileName = campType === "junior-camp"
-        ? "junior-camp-registrations.csv"
-        : campType === "stay-in-camp"
-          ? "stay-in-camp-registrations.csv"
-          : "registrations.csv";
+      const response = await exportCsv({
+        ...(campType ? { campType } : {}),
+        ...(gender ? { gender } : {})
+      });
+      const prefix = [
+        campType === "junior-camp" ? "junior-camp" : campType === "stay-in-camp" ? "stay-in-camp" : "all-camps",
+        gender === "male" ? "boys" : gender === "female" ? "girls" : "all"
+      ].join("-");
+      const fileName = `${prefix}-registrations.csv`;
       downloadBlob(new Blob([response.data], { type: "text/csv" }), fileName);
       toast.success("CSV exported");
     } catch (error) {
@@ -34,15 +37,18 @@ const AdminExportPage = () => {
     }
   };
 
-  const handleMerge = async (campType = "") => {
+  const handleMerge = async (campType = "", gender = "") => {
     setLoading(true);
     try {
-      const response = await mergeAllPdfs(campType ? { campType } : {});
-      const fileName = campType === "junior-camp"
-        ? "junior-camp-merged-registrations.pdf"
-        : campType === "stay-in-camp"
-          ? "stay-in-camp-merged-registrations.pdf"
-          : "merged-registrations.pdf";
+      const response = await mergeAllPdfs({
+        ...(campType ? { campType } : {}),
+        ...(gender ? { gender } : {})
+      });
+      const prefix = [
+        campType === "junior-camp" ? "junior-camp" : campType === "stay-in-camp" ? "stay-in-camp" : "all-camps",
+        gender === "male" ? "boys" : gender === "female" ? "girls" : "all"
+      ].join("-");
+      const fileName = `${prefix}-merged-registrations.pdf`;
       downloadBlob(new Blob([response.data], { type: "application/pdf" }), fileName);
       toast.success("Merged PDF downloaded");
     } catch (error) {
@@ -70,20 +76,24 @@ const AdminExportPage = () => {
         <ActionCard
           icon={Download}
           title="Export CSV"
-          description="Download a spreadsheet-friendly registration export."
+          description="Download CSV exports split by camp and gender."
           actions={[
-            { label: "Junior Camp CSV", onClick: () => handleExportCsv("junior-camp") },
-            { label: "Stay in Camp CSV", onClick: () => handleExportCsv("stay-in-camp") }
+            { label: "Junior Boys CSV", onClick: () => handleExportCsv("junior-camp", "male") },
+            { label: "Junior Girls CSV", onClick: () => handleExportCsv("junior-camp", "female") },
+            { label: "Stay Boys CSV", onClick: () => handleExportCsv("stay-in-camp", "male") },
+            { label: "Stay Girls CSV", onClick: () => handleExportCsv("stay-in-camp", "female") }
           ]}
           loading={loading}
         />
         <ActionCard
           icon={FileText}
           title="Merge PDFs"
-          description="Create one combined PDF for all registrations."
+          description="Create merged PDFs split by camp and gender."
           actions={[
-            { label: "Junior Camp PDF", onClick: () => handleMerge("junior-camp") },
-            { label: "Stay in Camp PDF", onClick: () => handleMerge("stay-in-camp") }
+            { label: "Junior Boys PDF", onClick: () => handleMerge("junior-camp", "male") },
+            { label: "Junior Girls PDF", onClick: () => handleMerge("junior-camp", "female") },
+            { label: "Stay Boys PDF", onClick: () => handleMerge("stay-in-camp", "male") },
+            { label: "Stay Girls PDF", onClick: () => handleMerge("stay-in-camp", "female") }
           ]}
           loading={loading}
         />

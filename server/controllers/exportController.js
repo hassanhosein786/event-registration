@@ -17,7 +17,17 @@ const formatParentGuardianContact = (contact) => {
 };
 
 const exportCsv = asyncHandler(async (req, res) => {
-  const registrations = await Registration.find({}).sort({ createdAt: -1 }).lean();
+  const campType = String(req.query.campType || "").trim();
+  const gender = String(req.query.gender || "").trim();
+  const filter = {};
+  if (campType === "junior-camp" || campType === "stay-in-camp") {
+    filter.campType = campType;
+  }
+  if (gender === "male" || gender === "female") {
+    filter.gender = gender;
+  }
+
+  const registrations = await Registration.find(filter).sort({ createdAt: -1 }).lean();
   const rows = registrations.map((item) => ({
     registrationId: item.registrationId,
     eventId: item.eventId,
@@ -45,9 +55,13 @@ const exportCsv = asyncHandler(async (req, res) => {
 
 const mergeAllPdfs = asyncHandler(async (req, res) => {
   const campType = String(req.query.campType || "").trim();
+  const gender = String(req.query.gender || "").trim();
   const filter = { generatedPdf: { $ne: "" } };
   if (campType === "junior-camp" || campType === "stay-in-camp") {
     filter.campType = campType;
+  }
+  if (gender === "male" || gender === "female") {
+    filter.gender = gender;
   }
 
   const registrations = await Registration.find(filter).sort({ createdAt: -1 }).lean();
