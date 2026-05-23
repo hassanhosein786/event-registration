@@ -39,7 +39,7 @@ const CamperLoginPage = () => {
       localStorage.removeItem("camper_token");
       localStorage.setItem("camper_token", response.token);
       toast.success("Welcome to camper lookup");
-      navigate("/campers");
+      window.location.replace("/campers");
     } catch (error) {
       toast.error(error?.response?.data?.message || "Login failed");
     } finally {
