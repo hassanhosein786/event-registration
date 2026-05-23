@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { BarChart3, FileText, LayoutDashboard, LogOut, Settings, Menu, Archive } from "lucide-react";
+import { FileText, LayoutDashboard, LogOut, Menu, Archive } from "lucide-react";
 import { useAuth } from "../hooks/useAuth";
 
 const navItems = [
   { label: "Dashboard", to: "/admin/dashboard", icon: LayoutDashboard },
   { label: "Exports", to: "/admin/export", icon: Archive },
-  { label: "Print All", to: "/admin/print", icon: FileText },
-  { label: "Settings", to: "/admin/settings", icon: Settings }
+  { label: "Print All", to: "/admin/print", icon: FileText }
 ];
 
 const AdminLayout = () => {

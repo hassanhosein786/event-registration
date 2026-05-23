@@ -132,8 +132,8 @@ File:
 Seeded automatically on server start using:
 
 - Username: `admin`
-- Email: `admin@admin.com`
-- Password: `admin123`
+- Email: `<your-admin-email>`
+- Password: `<your-admin-password>`
 
 ## Sample Data
 
@@ -177,13 +177,13 @@ Base URL: `/api`
 - Generated files are stored under `server/public/uploads`.
 - Gmail SMTP works with this app, but you must use a Google App Password instead of your normal Gmail password.
 - Recommended free email option:
-  - `BREVO_API_KEY=your_brevo_api_key`
+  - `BREVO_API_KEY=<your_brevo_api_key>`
   - `SMTP_FROM=Event Registration <your_verified_sender_email>`
 - If you prefer SMTP fallback:
   - `SMTP_HOST=smtp-relay.brevo.com`
   - `SMTP_PORT=587`
-  - `SMTP_USER=your_brevo_smtp_login`
-  - `SMTP_PASS=your_brevo_smtp_password`
+  - `SMTP_USER=<your_brevo_smtp_login>`
+  - `SMTP_PASS=<your_brevo_smtp_password>`
   - `SMTP_FROM=Event Registration <your_verified_sender_email>`
 
 ## Recommended Next Step

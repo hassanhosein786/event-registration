@@ -8,7 +8,6 @@ import AdminDashboardPage from "./pages/AdminDashboardPage";
 import RegistrationDetailPage from "./pages/RegistrationDetailPage";
 import PublicVerificationPage from "./pages/PublicVerificationPage";
 import PrintAllPage from "./pages/PrintAllPage";
-import SettingsPage from "./pages/SettingsPage";
 import ExportPage from "./pages/AdminExportPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
@@ -28,7 +27,6 @@ const App = () => {
         <Route path="registrations/:id" element={<RegistrationDetailPage />} />
         <Route path="export" element={<ExportPage />} />
         <Route path="print" element={<PrintAllPage />} />
-        <Route path="settings" element={<SettingsPage />} />
       </Route>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
