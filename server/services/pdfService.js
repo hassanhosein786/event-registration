@@ -159,7 +159,7 @@ const createRegistrationPdf = async (registration) => {
   const title = registration.eventName || "Montrose Muslim Association Islamic Summer Camp 2026";
   page.drawText(title, {
     x: 50,
-    y: 625,
+    y: 640,
     size: fitFontSize(fontBold, title, 495, 20, 13),
     font: fontBold,
     color: rgb(0.08, 0.2, 0.45)
@@ -167,7 +167,7 @@ const createRegistrationPdf = async (registration) => {
 
   page.drawText(`Registration ID: ${registration.registrationId}`, {
     x: 50,
-    y: 575,
+    y: 590,
     size: 12,
     font,
     color: rgb(0.25, 0.25, 0.25)
@@ -175,14 +175,14 @@ const createRegistrationPdf = async (registration) => {
 
   page.drawText(`Camp Type: ${formatCampType(registration.campType)}`, {
     x: 50,
-    y: 540,
+    y: 555,
     size: 12,
     font,
     color: rgb(0.25, 0.25, 0.25)
   });
 
-  const rowGap = 18;
-  let y = 490;
+  const rowGap = 17;
+  let y = 505;
   drawFieldPair(page, font, ["Full Name", registration.fullName], ["School", registration.school], y);
   y -= rowGap;
   drawFieldPair(page, font, ["Class Level", registration.classLevel], ["Date of Birth", registration.dateOfBirth ? new Date(registration.dateOfBirth).toLocaleDateString() : "-"], y);
@@ -199,7 +199,7 @@ const createRegistrationPdf = async (registration) => {
   y = drawWrappedField(page, font, "Relationship to Camper", registration.parentGuardianContact?.relationship || "-", 50, y, 485);
   y = drawWrappedField(page, font, "Contact Number", registration.parentGuardianContact?.contactNumber || "-", 50, y, 485);
   drawFieldPair(page, font, ["Consent Accepted", registration.consentAccepted ? "Yes" : "No"], ["Submitted At", new Date(registration.submittedAt || registration.createdAt).toLocaleString()], y);
-  const footerTop = Math.max(185, Math.min(215, y - 25));
+  const footerTop = Math.max(195, Math.min(225, y - 25));
   const footerBoxY = footerTop - 4;
 
   page.drawText("Consent to rules and regulations", {
