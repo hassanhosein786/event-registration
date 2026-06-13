@@ -11,7 +11,7 @@ const ensureDir = async (dir) => {
 const loadLogoPng = async () => {
   const logoSvgPath = path.join(path.resolve(__dirname, ".."), "public", "logo.svg");
   const svg = await fs.readFile(logoSvgPath);
-  return sharp(svg).resize(320, 320, { fit: "contain" }).png().toBuffer();
+  return sharp(svg).resize(220, 220, { fit: "contain" }).png().toBuffer();
 };
 
 const addTextLine = (page, font, label, value, x, y, size = 11) => {
@@ -148,10 +148,10 @@ const createRegistrationPdf = async (registration) => {
 
   const logoBytes = await loadLogoPng();
   const logoImage = await pdfDoc.embedPng(logoBytes);
-  const logoDims = logoImage.scale(0.42);
+  const logoDims = logoImage.scale(0.3);
   page.drawImage(logoImage, {
     x: (595 - logoDims.width) / 2,
-    y: 675,
+    y: 700,
     width: logoDims.width,
     height: logoDims.height
   });
@@ -159,7 +159,7 @@ const createRegistrationPdf = async (registration) => {
   const title = registration.eventName || "Montrose Muslim Association Islamic Summer Camp 2026";
   page.drawText(title, {
     x: 50,
-    y: 610,
+    y: 625,
     size: fitFontSize(fontBold, title, 495, 20, 13),
     font: fontBold,
     color: rgb(0.08, 0.2, 0.45)
@@ -167,7 +167,7 @@ const createRegistrationPdf = async (registration) => {
 
   page.drawText(`Registration ID: ${registration.registrationId}`, {
     x: 50,
-    y: 560,
+    y: 575,
     size: 12,
     font,
     color: rgb(0.25, 0.25, 0.25)
@@ -175,14 +175,14 @@ const createRegistrationPdf = async (registration) => {
 
   page.drawText(`Camp Type: ${formatCampType(registration.campType)}`, {
     x: 50,
-    y: 525,
+    y: 540,
     size: 12,
     font,
     color: rgb(0.25, 0.25, 0.25)
   });
 
   const rowGap = 18;
-  let y = 475;
+  let y = 490;
   drawFieldPair(page, font, ["Full Name", registration.fullName], ["School", registration.school], y);
   y -= rowGap;
   drawFieldPair(page, font, ["Class Level", registration.classLevel], ["Date of Birth", registration.dateOfBirth ? new Date(registration.dateOfBirth).toLocaleDateString() : "-"], y);
