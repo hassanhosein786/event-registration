@@ -11,7 +11,7 @@ const ensureDir = async (dir) => {
 const loadLogoPng = async () => {
   const logoSvgPath = path.join(path.resolve(__dirname, ".."), "public", "logo.svg");
   const svg = await fs.readFile(logoSvgPath);
-  return sharp(svg).resize(220, 220, { fit: "contain" }).png().toBuffer();
+  return sharp(svg).resize(240, 240, { fit: "contain" }).png().toBuffer();
 };
 
 const addTextLine = (page, font, label, value, x, y, size = 11) => {
@@ -148,7 +148,7 @@ const createRegistrationPdf = async (registration) => {
 
   const logoBytes = await loadLogoPng();
   const logoImage = await pdfDoc.embedPng(logoBytes);
-  const logoDims = logoImage.scale(0.3);
+  const logoDims = logoImage.scale(0.33);
   page.drawImage(logoImage, {
     x: (595 - logoDims.width) / 2,
     y: 700,
