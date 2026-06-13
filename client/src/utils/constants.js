@@ -10,15 +10,10 @@ export const campTypeOptions = [
 
 export const jerseySizeOptions = [
   { label: "Select size", value: "" },
-  { label: "Youth XS", value: "Youth XS" },
-  { label: "Youth S", value: "Youth S" },
-  { label: "Youth M", value: "Youth M" },
-  { label: "Youth L", value: "Youth L" },
-  { label: "Adult S", value: "Adult S" },
-  { label: "Adult M", value: "Adult M" },
-  { label: "Adult L", value: "Adult L" },
-  { label: "Adult XL", value: "Adult XL" },
-  { label: "Adult XXL", value: "Adult XXL" }
+  { label: "S", value: "S" },
+  { label: "M", value: "M" },
+  { label: "L", value: "L" },
+  { label: "XL", value: "XL" }
 ];
 
 export const sortOptions = [

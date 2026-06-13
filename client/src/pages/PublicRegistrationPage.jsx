@@ -298,6 +298,9 @@ const PublicRegistrationPage = () => {
               <Button type="submit" disabled={submitting} className="min-w-44">
                 {submitting ? "Submitting..." : "Submit registration"}
               </Button>
+              <span className="text-xs text-slate-400 sm:text-sm">
+                (Note: submitting may take up to 1 minute)
+              </span>
             </div>
           </form>
         </section>

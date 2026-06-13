@@ -11,7 +11,7 @@
     "address": "14 Ocean View Drive, Port of Spain",
     "phone": "+1 868 555 0101",
     "email": "alicia@example.com",
-    "jerseySize": "Youth M",
+    "jerseySize": "M",
     "parentGuardianContact": {
       "name": "Jordan Morgan",
       "relationship": "Parent",
@@ -40,7 +40,7 @@
     "address": "22 Hillside Avenue, San Fernando",
     "phone": "+1 868 555 0202",
     "email": "marcus@example.com",
-    "jerseySize": "Adult L",
+    "jerseySize": "L",
     "parentGuardianContact": {
       "name": "Naomi Peters",
       "relationship": "Parent",
