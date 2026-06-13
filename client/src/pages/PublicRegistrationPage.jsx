@@ -187,7 +187,7 @@ const PublicRegistrationPage = () => {
               </p>
 
               <p className="font-semibold underline decoration-1 underline-offset-4">
-                There is also a Registration Fee of <strong>$200.00</strong> for campers between the ages of 9 to 19 and a Registration Fee of <strong>$150.00</strong> for campers between the ages of 4 to 8, which must be paid on or by <strong>July 11<sup>th</sup>, 2026</strong>. This is to help cover the costs of resources for classes and outdoor activities, etc.
+                There is also a Registration Fee of <strong>$200.00</strong> for campers between the ages of 9 to 19 and a Registration Fee of <strong>$150.00</strong> for campers between the ages of 5 to 8, which must be paid on or by <strong>July 11<sup>th</sup>, 2026</strong>. This is to help cover the costs of resources for classes and outdoor activities, etc.
               </p>
 
               <p className="text-rose-200">
