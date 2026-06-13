@@ -20,6 +20,7 @@ const registrationSchema = new mongoose.Schema(
     fullName: { type: String, required: true, trim: true },
     school: { type: String, required: true, trim: true },
     classLevel: { type: String, required: true, trim: true },
+    jerseySize: { type: String, required: true, trim: true },
     dateOfBirth: { type: Date, required: true },
     age: { type: Number, default: null },
     gender: { type: String, required: true, enum: ["male", "female", "other", "prefer-not-to-say"] },

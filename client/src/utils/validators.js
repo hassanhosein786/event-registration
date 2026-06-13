@@ -5,6 +5,7 @@ export const registrationSchema = z.object({
   fullName: z.string().min(2, "Full name is required"),
   school: z.string().min(2, "School is required"),
   classLevel: z.string().min(1, "Class level is required"),
+  jerseySize: z.string().min(1, "Jersey size is required"),
   dateOfBirth: z.string().min(1, "Date of birth is required"),
   gender: z.enum(["male", "female"]),
   address: z.string().min(5, "Address is required"),

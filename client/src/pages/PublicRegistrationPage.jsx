@@ -8,7 +8,7 @@ import Select from "../components/Select";
 import Checkbox from "../components/Checkbox";
 import TurnstileWidget from "../components/TurnstileWidget";
 import { registrationSchema } from "../utils/validators";
-import { genderOptions, campTypeOptions } from "../utils/constants";
+import { genderOptions, campTypeOptions, jerseySizeOptions } from "../utils/constants";
 import { submitRegistration } from "../services/registrationService";
 
 const initialState = {
@@ -16,6 +16,7 @@ const initialState = {
   fullName: "",
   school: "",
   classLevel: "",
+  jerseySize: "",
   dateOfBirth: "",
   gender: "",
   address: "",
@@ -223,6 +224,7 @@ const PublicRegistrationPage = () => {
                 <Input label="Email address" type="email" value={form.email} onChange={onChange("email")} error={errors.email} required />
                 <Input label="School" value={form.school} onChange={onChange("school")} error={errors.school} required />
                 <Input label="Class level" value={form.classLevel} onChange={onChange("classLevel")} error={errors.classLevel} required />
+                <Select label="Jersey size" value={form.jerseySize} onChange={onChange("jerseySize")} error={errors.jerseySize} options={jerseySizeOptions} required />
               </div>
             </div>
 

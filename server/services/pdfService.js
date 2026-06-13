@@ -26,7 +26,7 @@ const addTextLine = (page, font, label, value, x, y, size = 11) => {
 
 const drawFieldPair = (page, font, left, right, y) => {
   const leftText = `${left[0]}: ${left[1] || "-"}`;
-  const rightText = `${right[0]}: ${right[1] || "-"}`;
+  const rightText = right[0] ? `${right[0]}: ${right[1] || "-"}` : "";
 
   page.drawText(leftText, {
     x: 50,
@@ -35,13 +35,15 @@ const drawFieldPair = (page, font, left, right, y) => {
     font,
     color: rgb(0.1, 0.1, 0.1)
   });
-  page.drawText(rightText, {
-    x: 300,
-    y,
-    size: 11,
-    font,
-    color: rgb(0.1, 0.1, 0.1)
-  });
+  if (rightText) {
+    page.drawText(rightText, {
+      x: 300,
+      y,
+      size: 11,
+      font,
+      color: rgb(0.1, 0.1, 0.1)
+    });
+  }
 };
 
 const drawLine = (page, x1, y, x2) => {
@@ -185,9 +187,11 @@ const createRegistrationPdf = async (registration) => {
   y -= rowGap;
   drawFieldPair(page, font, ["Class Level", registration.classLevel], ["Date of Birth", registration.dateOfBirth ? new Date(registration.dateOfBirth).toLocaleDateString() : "-"], y);
   y -= rowGap;
-  drawFieldPair(page, font, ["Age", registration.age ?? calculateAge(registration.dateOfBirth)], ["Gender", registration.gender], y);
+  drawFieldPair(page, font, ["Jersey Size", registration.jerseySize], ["Age", registration.age ?? calculateAge(registration.dateOfBirth)], y);
   y -= rowGap;
-  drawFieldPair(page, font, ["Phone", registration.phone], ["Email", registration.email], y);
+  drawFieldPair(page, font, ["Gender", registration.gender], ["Phone", registration.phone], y);
+  y -= rowGap;
+  drawFieldPair(page, font, ["Email", registration.email], ["", ""], y);
   y -= rowGap;
   y = drawWrappedField(page, font, "Address", registration.address, 50, y, 485);
   y = drawWrappedField(page, font, "Medical Conditions", registration.medicalConditions || "-", 50, y, 485);

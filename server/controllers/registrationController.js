@@ -13,6 +13,7 @@ const registrationInputFields = {
   fullName: (value) => String(value || "").trim(),
   school: (value) => String(value || "").trim(),
   classLevel: (value) => String(value || "").trim(),
+  jerseySize: (value) => String(value || "").trim(),
   dateOfBirth: (value) => value,
   gender: (value) => String(value || "").trim(),
   address: (value) => String(value || "").trim(),
@@ -34,6 +35,7 @@ const validateRegistrationPayload = (body) => {
     "fullName",
     "school",
     "classLevel",
+    "jerseySize",
     "dateOfBirth",
     "gender",
     "address",
@@ -102,6 +104,7 @@ const createRegistration = asyncHandler(async (req, res) => {
   const fullName = registrationInputFields.fullName(req.body.fullName);
   const school = registrationInputFields.school(req.body.school);
   const classLevel = registrationInputFields.classLevel(req.body.classLevel);
+  const jerseySize = registrationInputFields.jerseySize(req.body.jerseySize);
   const dateOfBirth = new Date(req.body.dateOfBirth);
   const age = calculateAge(dateOfBirth);
   const gender = registrationInputFields.gender(req.body.gender);
@@ -156,6 +159,7 @@ const createRegistration = asyncHandler(async (req, res) => {
     fullName,
     school,
     classLevel,
+    jerseySize,
     dateOfBirth,
     age,
     gender,
