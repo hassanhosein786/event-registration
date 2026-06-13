@@ -9,7 +9,6 @@ export const campTypeOptions = [
 ];
 
 export const jerseySizeOptions = [
-  { label: "Select size", value: "" },
   { label: "S", value: "S" },
   { label: "M", value: "M" },
   { label: "L", value: "L" },
