@@ -87,8 +87,45 @@ const createTransporter = () => {
 };
 
 const sendRegistrationConfirmation = async (registration) => {
-  const htmlContent = `<p>Hello <strong>${registration.fullName}</strong>,</p><p>Your registration <strong>${registration.registrationId}</strong> was received successfully.</p><p>The completed registration PDF is attached to this email.</p>`;
-  const textContent = `Hello ${registration.fullName}, your registration ${registration.registrationId} was received successfully. The completed registration PDF is attached to this email.`;
+  const eventTitle = registration.eventName || "Montrose Muslim Association Islamic Summer Camp 2026";
+  const htmlContent = `
+    <div style="margin:0;padding:0;background:#f8fafc;font-family:Arial,Helvetica,sans-serif;color:#0f172a">
+      <div style="max-width:640px;margin:0 auto;padding:24px">
+        <div style="background:linear-gradient(135deg,#1d4ed8 0%,#0f172a 100%);border-radius:20px 20px 0 0;padding:24px 28px;color:#fff">
+          <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.85">Registration Confirmation</div>
+          <h1 style="margin:8px 0 0;font-size:24px;line-height:1.2">${eventTitle}</h1>
+        </div>
+        <div style="background:#ffffff;border:1px solid #e2e8f0;border-top:none;border-radius:0 0 20px 20px;padding:28px">
+          <p style="margin:0 0 16px;font-size:16px;line-height:1.6">Hello <strong>${registration.fullName}</strong>,</p>
+          <p style="margin:0 0 16px;font-size:15px;line-height:1.7;color:#334155">
+            Your registration has been received successfully. Please keep your registration ID for reference.
+          </p>
+          <div style="margin:20px 0;padding:16px 18px;border-radius:14px;background:#eff6ff;border:1px solid #bfdbfe">
+            <div style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#1d4ed8;margin-bottom:6px">Registration ID</div>
+            <div style="font-size:20px;font-weight:700;color:#0f172a">${registration.registrationId}</div>
+          </div>
+          <div style="margin:20px 0;padding:16px 18px;border-radius:14px;background:#f8fafc;border:1px solid #e2e8f0;color:#334155;line-height:1.7">
+            <strong style="color:#0f172a">What’s attached:</strong> the completed registration PDF for your records.
+          </div>
+          <p style="margin:0;color:#475569;line-height:1.7">
+            If you have any questions, please contact the camp organizers.
+          </p>
+        </div>
+      </div>
+    </div>
+  `;
+  const textContent = [
+    `${eventTitle}`,
+    "",
+    `Hello ${registration.fullName},`,
+    "",
+    `Your registration ${registration.registrationId} has been received successfully.`,
+    "Please keep your registration ID for reference.",
+    "",
+    "Attached: completed registration PDF",
+    "",
+    "If you have any questions, please contact the camp organizers."
+  ].join("\n");
 
   const attachments = [];
   if (registration.generatedPdf) {
