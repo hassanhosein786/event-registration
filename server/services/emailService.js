@@ -26,11 +26,10 @@ const parseSender = (senderValue) => {
   };
 };
 
-const loadLogoDataUri = async () => {
+const loadLogoPngBuffer = async () => {
   const logoSvgPath = path.join(path.resolve(__dirname, ".."), "public", "logo.svg");
   const svg = await fs.readFile(logoSvgPath);
-  const pngBuffer = await sharp(svg).resize(96, 96, { fit: "contain" }).png().toBuffer();
-  return `data:image/png;base64,${pngBuffer.toString("base64")}`;
+  return sharp(svg).resize(128, 128, { fit: "contain" }).png().toBuffer();
 };
 
 const sendViaBrevoApi = async ({ registration, attachments, htmlContent, textContent }) => {
@@ -75,6 +74,7 @@ const sendViaBrevoApi = async ({ registration, attachments, htmlContent, textCon
 
 const createTransporter = () => {
   if (!hasSmtpConfig()) return null;
+
   return nodemailer.createTransport({
     host: env.smtp.host,
     port: env.smtp.port,
@@ -96,12 +96,15 @@ const createTransporter = () => {
 
 const sendRegistrationConfirmation = async (registration) => {
   const eventTitle = registration.eventName || "Montrose Muslim Association Islamic Summer Camp 2026";
-  const logoDataUri = await loadLogoDataUri();
+  const logoCid = "mma-logo";
+  const logoUrl = `${String(env.clientUrl || "").replace(/\/$/, "")}/email-logo.png`;
+  const logoSrc = env.brevoApiKey ? logoUrl : `cid:${logoCid}`;
+
   const htmlContent = `
     <div style="margin:0;padding:0;background:#f8fafc;font-family:Arial,Helvetica,sans-serif;color:#0f172a">
       <div style="max-width:640px;margin:0 auto;padding:24px">
         <div style="background:linear-gradient(135deg,#1d4ed8 0%,#0f172a 100%);border-radius:20px 20px 0 0;padding:24px 28px;color:#fff;text-align:center">
-          <img src="${logoDataUri}" alt="Montrose Muslim Association logo" style="display:block;width:72px;height:72px;margin:0 auto 14px;border-radius:9999px;background:#fff;padding:6px" />
+          <img src="${logoSrc}" alt="Montrose Muslim Association logo" style="display:block;width:72px;height:72px;margin:0 auto 14px;border-radius:9999px;background:#fff;padding:6px" />
           <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.85">Registration Confirmation</div>
           <h1 style="margin:8px 0 0;font-size:24px;line-height:1.2">${eventTitle}</h1>
         </div>
@@ -115,7 +118,7 @@ const sendRegistrationConfirmation = async (registration) => {
             <div style="font-size:20px;font-weight:700;color:#0f172a">${registration.registrationId}</div>
           </div>
           <div style="margin:20px 0;padding:16px 18px;border-radius:14px;background:#f8fafc;border:1px solid #e2e8f0;color:#334155;line-height:1.7">
-            <strong style="color:#0f172a">What’s attached:</strong> the completed registration PDF for your records.
+            <strong style="color:#0f172a">What's attached:</strong> the completed registration PDF for your records.
           </div>
           <p style="margin:0;color:#475569;line-height:1.7">
             If you have any questions, please contact the camp organizers.
@@ -124,6 +127,7 @@ const sendRegistrationConfirmation = async (registration) => {
       </div>
     </div>
   `;
+
   const textContent = [
     `${eventTitle}`,
     "",
@@ -138,6 +142,25 @@ const sendRegistrationConfirmation = async (registration) => {
   ].join("\n");
 
   const attachments = [];
+
+  try {
+    const logoBuffer = await loadLogoPngBuffer();
+    if (env.brevoApiKey) {
+      attachments.push({
+        name: "email-logo.png",
+        content: logoBuffer.toString("base64")
+      });
+    } else {
+      attachments.push({
+        filename: "email-logo.png",
+        content: logoBuffer,
+        cid: logoCid
+      });
+    }
+  } catch (error) {
+    void error;
+  }
+
   if (registration.generatedPdf) {
     const absolutePdfPath = path.join(
       path.resolve(__dirname, ".."),
