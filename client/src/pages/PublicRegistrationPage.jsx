@@ -136,6 +136,21 @@ const PublicRegistrationPage = () => {
             </div>
           </div>
 
+          <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-4 shadow-glow sm:p-6">
+            <div className="mb-4 flex items-center justify-between gap-3">
+              <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-200">Camp flyer</h3>
+              <span className="text-xs text-slate-400">Preview for registrants</span>
+            </div>
+            <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-3">
+              <img
+                src="/flyer.jpg"
+                alt="Camp flyer"
+                className="mx-auto h-auto w-full max-w-4xl rounded-xl object-contain"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
           <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-glow">
             <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-200">Camp Rules and Guidelines</h3>
             <div className="mt-4 space-y-4 text-sm leading-6 text-slate-200">
