@@ -180,6 +180,8 @@ const PublicRegistrationPage = () => {
                   <li>Sportswear</li>
                   <li>Modest Swimwear</li>
                   <li>Topi for boys</li>
+                  <li>Book</li>
+                  <li>Pen</li>
                 </ol>
               </div>
 
